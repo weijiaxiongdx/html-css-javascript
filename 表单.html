@@ -1,0 +1,58 @@
+<!DOCTYPE html> <!-- 在浏览器渲染页面： 光标定位到当前页面 右键 Open with Live Server-->
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>表单</title>
+    </head>
+    <body>
+        <form action="https://www.baidu.com/s"> <!-- 1.地址中的s表示search，百度规定写法 -->
+            <input type="text" name="wd"> <!-- 2.name的值固定为wd。百度规定写法。做了这两步之后，输入内容并点击搜索就可以直接跳转到百度并显示搜索结果 -->
+            <button>去百度搜索</button>
+        </form>
+        <hr>
+        <form action="https://search.jd.com/search"> <!-- 1.京东规定写法 -->
+            <input type="text" name="keyword"> <!-- 2.name的值固定为keyword。京东规定写法。做了这两步之后，输入内容并点击搜索就可以直接跳转到京东并显示搜索结果 -->
+            <button>去京东搜索</button>
+        </form>
+        <hr>
+        <form action="https://search.jd.com/search">
+            <fieldset> <!-- fieldset对表单控制进行分组、legend标明分组名称 -->
+                <legend>主要信息</legend>
+                <label for="zhanghu">账户：</label> <!-- 这样写，可以在点击“账户”区域时，对应的输入框获得焦点。for的值与id的值对应 -->
+                <input id="zhanghu" type="text" name="keyword" value="zhangsan" maxlength="10"><br> <!-- name为数据名称。value为输入框默认输入值，可以不用写。通俗的说，就是参数名称和参数值 -->
+                <label> <!-- 这样写，也可以在点击“密码”区域时，对应的输入框获得焦点 -->
+                    密码：<input type="text" name="pwd" value="123" maxlength="6"><br>
+                </label>
+                性别：
+                <input type="radio" name="gender" value="male" checked>男 <!-- 1.必须要写name且属性值一样，表示在同一个组里面，以达到选一个、另一个不选的效果 -->
+                <input type="radio" name="gender" value="female">女<br> <!-- 2.必须要写value，以到达传参效果 -->
+            </fieldset>
+           
+            <fieldset>
+                <legend>附加信息</legend>
+                 爱好： 
+                <input type="checkbox" name="hobby" value="somke">抽烟
+                <input type="checkbox" name="hobby" value="drink">喝酒
+                <input type="checkbox" name="hobby" value="perm" checked>烫头<br> <!-- checked表示默认选中 -->
+                其它：
+                <textarea name="other" cols="20" rows="6"></textarea><br> <!-- cols表示默认列数、rows表示默认行数 -->
+                籍贯：
+                <select name="place"> <!-- name表示参数名称 -->
+                    <option value="hubei">湖北</option> <!-- 写了value，参数值就是value设置的值 -->
+                    <option>湖南</option> <!-- 没有写value，参数值就是“湖南” -->
+                    <option selected>广东</option>
+                </select>
+            </fieldset>
+           
+            <input type="hidden" name="hiddenParamName" value="hiddenParamValue"> <!-- 隐藏域，虽然页面中看不到，但会随表单一起提交 -->
+            <hr>
+            <button>第一种按钮-确认</button> <!-- 默认类型就是 type="submit -->
+            <input type="submit" value="第二种按钮-确认"><br>
+            
+            <button type="reset">第一种按钮-重置</button> <!-- 默认类型就是 type="submit -->    
+            <input type="reset" value="第二种按钮-重置"><br>
+            <button type="button">普通按钮1</button>
+            <input type="button" value="普通按钮2"><br>
+        </form>
+    </body>
+</html>
