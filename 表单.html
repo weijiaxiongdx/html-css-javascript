@@ -1,8 +1,25 @@
-<!DOCTYPE html> <!-- 在浏览器渲染页面： 光标定位到当前页面 右键 Open with Live Server-->
+<!DOCTYPE html> <!-- H5的文档声明(文件中的内容既可以写h4的也可以写h5的，向下兼容)。在浏览器渲染页面： 光标定位到当前页面 右键 Open with Live Server-->
 <html lang="zh-CN">
     <head>
+        <!-- 常用元信息 -->
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- IE浏览器兼容性设置，如果用户用的是IE8及以上浏览器， 则使用Edge的方式进行渲染-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 针对移动端(手机，平板等)的配置 -->
+        <meta name="keywords" content="网上购物,电商,物流,乒乓球"> <!-- 配置网页关键字，有利于搜索引擎搜索。一般由做SEO的同事提供 -->
+        <meta name="description" content="这里写描述信息"> <!-- 配置网页描述信息，有利于搜索引擎搜索。一般由做SEO的同事提供 -->
+        <meta name="robot" content="index"> <!-- 针对搜索引擎爬虫配置，index：允许搜索爬虫索引此页面
+                                                                    noindex：要求搜索爬虫不索引此页面
+                                                                    follow：允许搜索爬虫跟随此页面上的链接
+                                                                    nofollow：不允许搜索爬虫跟随此页面上的链接
+                                                                    all：与index和follow等价
+                                                                    none：与noindex和nofollow等价
+                                                                    noarchive：要求搜索引擎不缓存此页面
+                                                                    nocache：noarchive的替代名称。一般由做SEO的同事提供 -->
+        <meta name="copyright" content="2025-2050@版权所有"> <!-- 版权信息 -->  
+        <!-- <meta http-equiv="refresh" content="3;url=http://www.baidu.com"> --> <!-- 自动刷新，3秒后自动跳转到百度网页，这种跳转不能后退 -->                                                          
         <title>表单</title>
+
+        <link rel="stylesheet" href="a.css"> <!-- 引入外部样式，rel表示relation，说明引入的文档和当前文档之间的关系，stylesheet表示样式关系 -->
     </head>
     <body>
         <form action="https://www.baidu.com/s"> <!-- 1.地址中的s表示search，百度规定写法 -->
@@ -54,5 +71,28 @@
             <button type="button">普通按钮1</button>
             <input type="button" value="普通按钮2"><br>
         </form>
+        <hr>
+
+        <iframe src="https://www.baidu.com" width="1200" height="200" frameborder="1"></iframe><br> <!-- 框架标签，可以嵌入网页、图片、视频等各种文件。 frameborder是否加边框，1:是、0:否 -->
+
+        <hr>
+        <a href="https://www.taobao.com" target="tb">点我进淘宝</a> <!-- 在框架中打开网页 -->
+        <iframe name="tb" width="1200" height="200" frameborder="1"></iframe>
+
+        <hr>
+        <div>常用字     符实体</div> <!-- 只算一个空格 -->
+        <div>字&nbsp;&nbsp;&nbsp;&nbsp;符实体</div> <!-- 空格字符实体方式一，写几个算几个空格 -->
+        <div>字&#160;&#160;&#160;&#160;符实体</div> <!-- 空格字符实体方式二，编号形式，写几个算几个空格 -->
+        <div>大于号&gt;和小于号&lt;字符实体</div>
+        <div>表示&符号的字符实体：&amp;</div>
+        <div>人民币字符实体：&yen;</div>
+        <div>版权符号字符实体：&copy;</div>
+        <div>乘号字符实体：&times;</div>
+        <div>除号字符实体：&divide;</div>
+
+        <hr>
+        <div style="color: red;">样式学习</div> <!-- 1.行内样式：书写繁琐、不能复用，没有体现结构和样式分离的思想，不推荐大量使用-->
+                                                 <!-- 2.内部样式：写在html页面中的style标签中的样式，style标签理论上是可以放在HTML文档的任何地方(放在不对的地方，浏览器会自动移动head标签中)。当前页面中样式可以复用、代码结构清晰；结构和样式没有完全分离、多个HTML页面无法复用 -->
+                                                 <!-- 3.外部样式：写在单独的css文件中，html页面在head标签中通过link标签引入css文件。样式可以复用、结构清晰、可以触发浏览器的缓存机制以提高访问速度(多个页面使用同一个css文件，首次加载一次，后续从缓存中取。实际开发中，几乎都使用外部样式)--> 
     </body>
 </html>
