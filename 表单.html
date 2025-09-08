@@ -1,9 +1,9 @@
-<!DOCTYPE html> <!-- H5的文档声明(文件中的内容既可以写h4的也可以写h5的，向下兼容)。在浏览器渲染页面： 光标定位到当前页面 右键 Open with Live Server-->
+<!DOCTYPE html> <!-- H5的文档声明(文件中的内容既可以写h4的也可以写h5的，向下兼容)。在浏览器渲染页面： 光标定位到当前页面 右键 Open with Live Server -->
 <html lang="zh-CN">
     <head>
         <!-- 常用元信息 -->
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- IE浏览器兼容性设置，如果用户用的是IE8及以上浏览器， 则使用Edge的方式进行渲染-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- IE浏览器兼容性设置，如果用户用的是IE8及以上浏览器， 则使用Edge的方式进行渲染 -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 针对移动端(手机，平板等)的配置 -->
         <meta name="keywords" content="网上购物,电商,物流,乒乓球"> <!-- 配置网页关键字，有利于搜索引擎搜索。一般由做SEO的同事提供 -->
         <meta name="description" content="这里写描述信息"> <!-- 配置网页描述信息，有利于搜索引擎搜索。一般由做SEO的同事提供 -->
@@ -20,6 +20,16 @@
         <title>表单</title>
 
         <link rel="stylesheet" href="a.css"> <!-- 引入外部样式，rel表示relation，说明引入的文档和当前文档之间的关系，stylesheet表示样式关系 -->
+
+        <style>
+            div::first-letter {
+                color: red;
+            }
+
+            div::first-line {
+                background: skyblue;
+            }
+        </style>
     </head>
     <body>
         <form action="https://www.baidu.com/s"> <!-- 1.地址中的s表示search，百度规定写法 -->
@@ -94,5 +104,98 @@
         <div style="color: red;">样式学习</div> <!-- 1.行内样式：书写繁琐、不能复用，没有体现结构和样式分离的思想，不推荐大量使用-->
                                                  <!-- 2.内部样式：写在html页面中的style标签中的样式，style标签理论上是可以放在HTML文档的任何地方(放在不对的地方，浏览器会自动移动head标签中)。当前页面中样式可以复用、代码结构清晰；结构和样式没有完全分离、多个HTML页面无法复用 -->
                                                  <!-- 3.外部样式：写在单独的css文件中，html页面在head标签中通过link标签引入css文件。样式可以复用、结构清晰、可以触发浏览器的缓存机制以提高访问速度(多个页面使用同一个css文件，首次加载一次，后续从缓存中取。实际开发中，几乎都使用外部样式)--> 
+                                                 <!-- 行内样式优先级最高。内部样式和外部样式是平级的，style中后面写的会覆盖前面写的 -->
+    <!-- CSS 代码风格
+      1.展开风格：开发时推荐，便于维护和调试
+      2.紧凑风格：项目上线时推荐，可减小文件体积。项目上线时，会通过工具(如webpack)将展开风格的代码变成紧凑风格的代码，这样可以减小文件体积、节约网络流量、同时也让用户打开网页的速度更快
+    -->   
+      
+    <!-- CSS 选择器
+      1.通配选择器
+        可以选择所有的html元素，一般用于消除样式  * {color: red};
+      2.元素选择器
+        为页面中某种元素统一设置样式。无法实现差异化设置
+      3.类选择器
+      4.id选择器 
+      5.交集选择器
+        如p.className，表示为p元素且类名为className的标签设置样式
+        有标签名，标签名必须写在前面
+        id选择器理论上可以作为交集的条件，但实际应用几乎不用，因为没有意义
+        交集选择器中不能出现两个元素选择器，因为一个元素不可能既是元素1又是元素2
+        用的最多的就是元素选择器配合类选择器
+      6.并集选择器
+        div,p，所谓并集就是或者的意思，多个选择器之间通过逗号隔开。一般坚着写，任何形式的选择器都可以作为并集选择器的一部分，并集选择器通常用于集体声明，可以缩小样式表体积
+      7.后代选择器
+        div p，选择器之间用空格隔开，可以理解为“什么什么中的”。包括儿子、孙子、重孙子...
+      8.子代选择器
+        div>p，选择器之间用>隔开，可以理解为“什么什么的儿子”，不包括孙子、重孙子...
+      9.兄弟选择器
+        div+p，选择div后(向下找)紧紧相邻的兄弟p元素，中间有其它元素则不生效  
+        div~p，选择div后(向下找)所有的兄弟p元素
+      10.属性选择器
+         [title]，选择有title属性的元素   
+         [title=“属性值”]，选择有title属性且属性值为“属性值”的元素
+         [title^=“a”]，选择有title属性且属性值以a开头的元素
+         [title$=“a”]，选择有title属性且属性值以a结尾的元素
+         [title*=“a”]，选择有title属性且属性值包含a的元素
+      11.伪类选择器(伪类：很像类，但不是类-class，而是元素特殊状态的一种描述)
+         动态伪类
+           a:link，选择没有访问过的a元素。link用于a标签
+           a:visited，选择访问过的a元素。visited用于a标签
+           元素:hover，选择的是鼠标悬浮状态的元素，鼠标放到元素上
+           元素:active，选择的是激活状态的元素，鼠标放到元素上且按下鼠标键(没抬起鼠标键)。一般按link、visited、hover、active的顺序写，否则很可能样式不生效
+           表单元素:focus，选择的是获得焦点的表单元素，如input、select
+         结构伪类
+           div>p:first-child，选择的是其(p元素)父亲的第一个儿子且是p元素才行。第一个儿子不是p元素则样式不生效，以下同理
+           div>p:last-child，选择的是其(p元素)父亲的最后一个儿子且是p元素才行
+           div>p:nth-child(3)，选择的是其父亲的第3个儿子p元素。可以写的范围是0～正无穷，但下标是从1开始的，
+                               写0或不写没有效果
+                               写n则表示所有儿子
+                               写2n表示偶数(也可以使用even)
+                               写2n+1表示奇数(也可以使用odd)
+                               其它一些公式：-n+5，表示前5个，写成5-n就不行了，不满足a*n+b的形式
+                               总结：公式要满足a*n+b的形式，从0开始代入计算
+           div>p:first-of-type，选择的是其(p元素)父亲的子代该类元素(p元素)第一个儿子，从div中所有的子代p元素中找，不找其它类型的子元素    
+           div>p:last-of-type，选择的是其(p元素)父亲的子代该类元素(p元素)最后一个儿子，从div中所有的子代p元素中找，不找其它类型的子元素  
+           div>p:nth-of-type(3)，选择的是其(p元素)父亲的子代该类元素(p元素)第3个儿子，从div中所有的子代p元素中找，不找其它类型的子元素 
+           div>p:nth-last-child(3)，倒数第3个    
+           div>p:nth-of-type(3)，同类型中倒数第3个
+           :root，选择的是根元素，就是html元素
+         否定伪类
+           div>p:not(.fail)，选择的是div的儿子p元素，但排除类名为fail的元素。 not中可以是任何选择器   
+         UI伪类
+           input:checked，选择的复选框
+           input:radio，选择的单选框
+           input:disabled，选择禁用的输入框
+           input:enabled，选择可用的输入框，就是没有写disabled的输入框
+         目标伪类
+           dev:target，选择锚点指向的元素
+         语言伪类
+           div:lang(en)，选择div且其lang属性的值为en的元素。没有单独写lang属性，则继承html中的lang属性的值 
+           :lang(en)，选择的是lang属性的值为en的所有元素
+      12.伪元素选择器(伪元素：很像元素，但不是元素-element，是元素中的一些特殊位置)
+         div::first-letter，选择div中的第一个字符。CSS2，可以一个冒号
+         div::first-line，选择div中的第一行文字。CSS2，可以一个冒号
+         div::selection，选择div中被鼠标选择的文字。selection为CSS3新增，必须两个冒号
+         input:placeholder，选择输入框中提示的文字。placeholderCSS3新增，必须两个冒号
+         p::before，选择p元素内容开始的位置(随后创建一个子元素)。可以使用content给某内容前加内容。CSS2，可以一个冒号
+         p::after，选择p元素内容结束的位置(随后创建一个子元素)。可以使用content给某内容后加内容。CSS2，可以一个冒号
+
+       简单地说优先级：!important>行内样式>ID选择器>类选择器>元素选择器>通配选择器>继承的样式  
+       复杂地说优先级：1.计算(VS Code会自动计算选择器的权重，鼠标放到选择器上会出现Selector Specificity: (0, 0, 2)，这就是权重)
+                      格式(a,b,c)
+                      a：ID选择器的个数
+                      b：类、伪类、属性等三个选择器的个数
+                      c：元素、伪元素等两个选择器的个数
+                    2.比较对应位的值，值大的权重就大(后面的位就不用比较)。若都一样大，则后面写的会覆盖前面写的  
+    -->
+    <!-- CSS 三大特性
+      层叠性：如果样式发生了冲突，那就会根据一定的规则(选择器优先级)，进行样式的层叠(覆盖)。解决样式冲突问题
+      继承性：元素会自动拥有其父元素或祖先元素上所设置的某些样式。优先继承离得近的父元素的属性。常见的可继承属性text-x、font-x、line-x、color等等
+      优先级：按上面说的权重计算方法计算优先级
+    -->                
+    <div> <!-- 输入lorem+回车 自动生成一段话，lorem后加数字可以控制单词数量 -->
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic iusto incidunt unde mollitia? Cupiditate at nam sequi ducimus iste reprehenderit laboriosam laudantium, similique ad! Amet placeat repudiandae vero iste explicabo!
+    </div>   
     </body>
 </html>
