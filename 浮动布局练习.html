@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>浮动布局练习</title>
+
+        <style>
+            * { /* 清除所有元素的默认样式 */
+                margin: 0;
+                padding: 0;
+            }
+
+            .leftfix { /* 定义基础样式，以共用 */
+                float: left;
+            }
+
+            .rightfix { /* 定义基础样式，以共用 */
+                float: right;
+            }
+
+            .clearfix::after { /* 定义基础样式，解决浮动产生的影响 */
+                content: '';
+                display: block;
+                clear: both;
+            }
+
+            .container { /* 不给高度，高度由内容撑开 */
+                width: 960px;
+                margin: 0 auto; /* 当前块元素水平居中 */
+                text-align: center;  /* 很多子元素的内容需要水平居中，定义在父元素，子元素可以继承 */
+            }
+
+            .logo {
+                width: 200px;
+            }
+
+            .banner1 {
+                width: 540px;
+                margin: 0 10px;
+            }
+
+            .banner2 {
+                width: 200px;
+            }
+
+            .logo,.banner1,.banner2 { /* 并行选择器，对多个元素设置统一样式 */
+                height: 80px;
+                line-height: 80px; /* 值与height一样，以达到其中文字的垂直居中效果 */
+                background-color: #ccc;
+            }
+
+            .menu {
+                height: 30px;
+                background-color: #ccc;
+                margin-top: 10px;
+                line-height: 30px; /* 值与height一样，以达到其中文字的垂直居中效果 */
+            }
+
+            .item1,.item2 {
+                width: 368px;
+                height: 198px;
+                line-height: 198px; /* 值与height一样，以达到其中文字的垂直居中效果 */
+                border: 1px solid black;
+                margin-right: 10px;
+            }
+
+            .content {
+                margin-top: 10px;
+            }
+
+            .item3,.item4,.item5,.item6 { /* 并行选择器，对多个元素设置统一样式 */
+                width: 178px;
+                height: 198px;
+                line-height: 198px; /* 值与height一样，以达到其中文字的垂直居中效果 */
+                border: 1px solid black;
+                margin-right: 10px;
+            }
+
+            .bottom {
+                margin-top: 10px;
+            }
+
+            .item7,.item8,.item9 {
+                width: 198px;
+                height: 128px;
+                line-height: 128px; /* 值与height一样，以达到其中文字的垂直居中效果 */
+                border: 1px solid black;
+            }
+            
+            .item8 {
+                margin: 10px 0;
+            }
+
+            .footer {
+                height: 60px;
+                background-color: #ccc;
+                margin-top: 10px;
+                line-height: 60px;  /* 值与height一样，以达到其中文字的垂直居中效果 */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- 头部 -->
+            <div class="page-header clearfix"> 
+               <div class="logo leftfix">logo</div> <!-- 子元素设置浮动，父元素设置清除浮动，以解决浮动带来的两个影响 -->
+               <div class="banner1 leftfix">banner1</div>
+               <div class="banner2 leftfix">banner2</div>
+            </div>
+
+            <!-- 菜单 -->
+            <div class="menu">菜单</div> 
+
+            <!-- 内容区 -->
+            <div class="content clearfix">
+                <!-- 左侧 -->
+                <div class="left leftfix"> <!-- 子元素设置浮动，父元素设置清除浮动，以解决浮动带来的两个影响 -->
+
+                    <!-- 上 -->
+                    <div class="top clearfix">
+                        <div class="item1 leftfix"> <!-- 子元素设置浮动，父元素设置清除浮动，以解决浮动带来的两个影响 -->
+                            栏目一
+                        </div>
+                        <div class="item2 leftfix">
+                             栏目二
+                        </div>
+                    </div>
+
+                    <!-- 下 -->
+                    <div class="bottom clearfix">
+                        <div class="item3 leftfix"> <!-- 子元素设置浮动，父元素设置清除浮动，以解决浮动带来的两个影响 -->
+                            栏目三
+                        </div>
+                        <div class="item4 leftfix">
+                            栏目四
+                        </div>
+                        <div class="item5 leftfix">
+                            栏目五
+                        </div>
+                        <div class="item6 leftfix">
+                            栏目六
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧 -->
+                <div class="right rightfix">
+                    <div class="item7">
+                        栏目七
+                    </div>
+                    <div class="item8">
+                        栏目八
+                    </div>
+                    <div class="item9">
+                        栏目九
+                    </div>
+                </div>
+            </div>
+
+             <!-- 页脚 -->
+            <div class="footer">
+                页脚
+            </div>
+        </div>
+
+    </body>
+</html>
