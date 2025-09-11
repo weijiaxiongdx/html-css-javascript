@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>粘性定位</title>
+
+        <style>
+            * { /* 清除所有元素的默认样式 */
+                margin: 0;
+                padding: 0;
+            }
+
+            .page-head {
+                height: 100px;
+                line-height: 100px;
+                text-align: center;
+                background-color: orange;
+                font-size: 20px;
+            }
+
+            .item {
+                background-color: gray;
+            }
+
+            .first {
+                background-color: skyblue;
+                font-size: 40px;
+                position: sticky; /* 开启粘性定位 */
+                top: 0px; /* 距离参考点多少px会被粘住(就是定住不动)，一直到粘性定位元素的底边缘与其父元素底边缘重合时，才会随其父元素一起动 */
+            }
+
+            body { /* 此处给一个高度，只是为了能让所有元素滑出屏幕，便于观察粘性定位效果 */
+                height: 2000px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- 头部 -->
+        <div class="page-head">
+            头部
+        </div>
+
+        <!-- 内容区 -->
+        <div class="content">
+            <div class="item">
+                <div class="first">A</div>
+                <h2>A1</h2>
+                <h2>A2</h2>
+                <h2>A3</h2>
+                <h2>A4</h2>
+                <h2>A5</h2>
+                <h2>A6</h2>
+                <h2>A7</h2>
+                <h2>A8</h2>
+            </div>
+
+            <div class="item">
+                <div class="first">B</div>
+                <h2>B1</h2>
+                <h2>B2</h2>
+                <h2>B3</h2>
+                <h2>B4</h2>
+                <h2>B5</h2>
+                <h2>B6</h2>
+                <h2>B7</h2>
+                <h2>B8</h2>
+            </div>
+            
+            <div class="item">
+                <div class="first">C</div>
+                <h2>C1</h2>
+                <h2>C2</h2>
+                <h2>C3</h2>
+                <h2>C4</h2>
+                <h2>C5</h2>
+                <h2>C6</h2>
+                <h2>C7</h2>
+                <h2>C8</h2>
+            </div> 
+        </div>
+    </body>
+</html>
