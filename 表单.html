@@ -539,5 +539,51 @@
            3.3.4对并集选择器的使用比较谨慎，有效避免调试工具杂论 
     -->
 
+    <!-- VS Code 使用技巧
+      1.折叠代码
+        /* #region 代码片段起始位置注释中最前面写#region */
+        
+        /* #endregion 代码片段结束位置注释中最前面写#endregion */
+    -->
+
+
+
+    <!-- 以上记录的都是关于HTML4和CSS2的，从这里开始记录HMTL5和CSS3 -->
+
+    <!-- HTML5
+      1.概述
+        HTML5是新一代的HTML标准，2014年由万维网联盟(W3C)完成标准制定。HTML5在狭义上是指新一代的HMTL标准，在广义上指整个前端
+        官网地址(两个组织的恩怨，自行了解)
+          目前这两个标准有一定的区别，如W3C有的标签WHATWG中不一定有，WHATWG中有的标签W3C中不一定有
+          W3C提供：https://html.spec.whatwg.org/multipage/index.html
+          WHATWG提供：https://whatwg-cn.github.io/html/multipage/
+      2.优势
+        2.1针对javascript，新增了很多可操作的接口，通俗地说，就是HTML5向javascript开放了很多接口，然后可以通过javascript来操作hmlt，如新增元素、删除元素等
+           极端一点，就是新建一个空的html文件，里面的内容都可以通过javascript来添加。正是有了这个特点，HTML5在广义上可表示整个前端
+        2.2新增了一些语义化的标签、全局属性
+        2.3新增了多媒体(如音频、视频等)标签，可以很好的替代flash
+        2.4更加侧重语义化(如删除了HTML4中的font标签，因为font没有什么语义，设置样式的活，CSS就可以完成)，对于SEO更友好
+        2.5可移植性更好，可以大量应用在移动设备上  
+      3.兼容性
+        支持Chrome、Safari、Opera、Firefox等主流浏览器
+        IE9及以上版本才支持HTML5，且IE9仅支持部分HTML5新特性
+      4.新增布局标签(主要掌握前6个)
+        4.1header
+           整个页面或部分区域的头部
+        4.2footer
+           整个页面或部分区域的底部
+        4.3nav
+           导航
+        4.4article
+           文章、帖子、杂质、新闻、博客、评论等。该标签中可以有多个section。article比section更强调独立性，如果一块内容比较独立、比较完整，应该使用article元素 。现在用的也不多
+        4.5section
+           页面中某段文字或文章中的某段文字。强调的是分段或分块，如果想将一块内容分成几段的时候，可以使用section。现在用的也不多
+        4.6aside
+           侧边栏
+        4.7main
+           文档的主要内容(WHATWG没有语义，IE不支持)，几乎不用
+        4.8hgroup
+           包裹连续的标题，如文章主标题、副标题的组合。W3C已删除   
+    -->
     </body>
 </html>

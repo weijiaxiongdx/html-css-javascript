@@ -25,40 +25,40 @@
             }
 
             .container { /* 不给高度，高度由内容撑开 */
-                width: 960px;
+                width: 960px; /* 内容区宽度 */
                 margin: 0 auto; /* 当前块元素水平居中 */
                 text-align: center;  /* 很多子元素的内容需要水平居中，定义在父元素，子元素可以继承 */
             }
 
             .logo {
-                width: 200px;
+                width: 200px; /* 内容区宽度 */
             }
 
             .banner1 {
-                width: 540px;
+                width: 540px; /* 内容区宽度 */
                 margin: 0 10px;
             }
 
             .banner2 {
-                width: 200px;
+                width: 200px; /* 内容区宽度 */
             }
 
             .logo,.banner1,.banner2 { /* 并行选择器，对多个元素设置统一样式 */
-                height: 80px;
+                height: 80px; /* 内容区高度 */
                 line-height: 80px; /* 值与height一样，以达到其中文字的垂直居中效果 */
                 background-color: #ccc;
             }
 
             .menu {
-                height: 30px;
+                height: 30px; /* 内容区高度 */
                 background-color: #ccc;
                 margin-top: 10px;
                 line-height: 30px; /* 值与height一样，以达到其中文字的垂直居中效果 */
             }
 
             .item1,.item2 {
-                width: 368px;
-                height: 198px;
+                width: 368px; /* 内容区宽度 */
+                height: 198px; /* 内容区高度 */
                 line-height: 198px; /* 值与height一样，以达到其中文字的垂直居中效果 */
                 border: 1px solid black;
                 margin-right: 10px;
