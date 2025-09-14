@@ -3,7 +3,8 @@
     <head>
         <!-- 常用元信息 -->
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- IE浏览器兼容性设置，如果用户用的是IE8及以上浏览器， 则使用Edge的方式进行渲染 -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- 兼容性处理：IE浏览器兼容性设置，如果用户用的是IE8及以上浏览器， 则使用Edge的方式进行渲染 -->
+        <meta name="render" content="webkit"> <!-- 兼容性处理：针对一些国产的双核浏览器，让浏览器优先使用谷歌的webkit内核渲染页面 -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 针对移动端(手机，平板等)的配置 -->
         <meta name="keywords" content="网上购物,电商,物流,乒乓球"> <!-- 配置网页关键字，有利于搜索引擎搜索。一般由做SEO的同事提供 -->
         <meta name="description" content="这里写描述信息"> <!-- 配置网页描述信息，有利于搜索引擎搜索。一般由做SEO的同事提供 -->
@@ -20,6 +21,11 @@
         <title>表单</title>
 
         <link rel="stylesheet" href="a.css"> <!-- 引入外部样式，rel表示relation，说明引入的文档和当前文档之间的关系，stylesheet表示样式关系 -->
+
+        <!-- 兼容性处理：IE浏览器且小于9版本才会引入谷歌提供的html5shiv.js文件来处理兼容性问题。需要自己下载放到自己的项目中来。就是让低版本的浏览器认识H5的语义化标签 -->
+        <!--[if lt ie 9]>  
+        <script src="./html5shiv.js"></script>
+        <![endif]-->
 
         <style>
             div::first-letter {
@@ -548,7 +554,7 @@
 
 
 
-    <!-- 以上记录的都是关于HTML4和CSS2的，从这里开始记录HMTL5和CSS3 -->
+    <!-- 以上记录的绝大部分都是关于HTML4和CSS2的，从这里开始记录HMTL5和CSS3 -->
 
     <!-- HTML5
       1.概述
@@ -583,7 +589,61 @@
         4.7main
            文档的主要内容(WHATWG没有语义，IE不支持)，几乎不用
         4.8hgroup
-           包裹连续的标题，如文章主标题、副标题的组合。W3C已删除   
+           包裹连续的标题，如文章主标题、副标题的组合。W3C已删除 
+      5.新增状态标签   
+        5.1meter
+           定义已知范围的标量测量，也被称为尺度gauge，可呈现电量、磁盘用量等效果
+        5.2progress
+           显示某个任务完成的进度
+      6.新增列表标签     
+        6.1datalist
+           用于搜索框关键字提示
+        6.2details
+           用于展示问题和答案
+        6.3summary  
+           写在details里面，用于指定问题或专有名词  
+      7.新增文本标签     
+        7.1文本注音
+           ruby
+           rt 
+        7.2文本标记
+          mark。W3C建议mark用于标记搜索结果中的关键字
+      8.新增表单控件属性 
+        8.1placeholder 
+        8.2required
+        8.3autofocus
+        8.4autocomplete
+        8.5pattern 
+      9.新增视频标签
+        video   
+      10.新增音频标签
+         audio  
+      11.兼容性处理
+         见head标签中的一些处理
+    -->
+
+    <span>手机电量：</span>
+    <meter max="100" min="0" value="9" low="10" high="20" optimum="90"></meter> <!-- 在有optimum属性时：value的值在[0～low)之间显示红色、[low～ligh)之间显示黄色、[high～max]之间显示绿色
+                                                                                     没有optimum属性时：出现在[low,high]之间的才算正常(绿色)，其它区间都算不正常(黄色) 
+                                                                                -->
+    <br>
+    <span>进度：</span>
+    <progress max="100" value="30"></progress> <!-- max表示目标值、value表示当前值 -->
+
+    <!-- CSS3
+      1.概述
+        CSS3是CSS2的升级版本，在CSS2的基础上新增了很多强大的功能
+      2.CSS 私有前缀
+        W3C提出的某个CSS特性，在被浏览器正式支持之前，浏览器厂商会根据浏览器的内核，使用私有前缀来测试该CSS特性(好不好用)，在浏览器正式支持该CSS特性后，就不需要私有前缀了
+        什么浏览器加什么前缀，可通过网站查询 https://caniuse.com
+        但我们在编写代码时，不用过于关注浏览器私有前缀，不用刻意记忆，因为常用的CSS3新特性，主流浏览器都是支持的，即便是为了老浏览器加前缀，也可以通过现代的的构建工具(如webpack)自动地添加私有前缀
+        常见浏览器私有前缀
+          Chrome: -webkit-
+          Safari: -webkit-
+          Firefox: -moz-
+          Edge: -webkit- 
+          旧Opera: -o-
+          旧IE: -ms-
     -->
     </body>
 </html>
