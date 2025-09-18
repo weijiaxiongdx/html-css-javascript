@@ -644,6 +644,174 @@
           Edge: -webkit- 
           旧Opera: -o-
           旧IE: -ms-
+      3.新增渐变   
+      4.新增长度单位
+        4.1rem
+           上边记录过
+        4.2vw
+           视口宽度的百分比。如50vw，表示视口宽度的50%
+        4.3vh
+           视口高度的百分比。如50vh，表示视口高度的50%
+        4.4vmax
+           视口宽度和高度中较大值的百分比
+        4.5vmin 
+           视口宽度和高度中较小值的百分比、
+      5.新增颜色
+        5.1rgb
+        5.2hsl
+        5.3hsla   
+      6.新增选择器
+        动态伪类、目标伪类、语言伪类、UI伪类、结构伪类、否定伪类、伪元素
+      7.新增盒子属性
+        7.1box-sizing
+           box-sizing:content-box，设置了该属性后，对应的width和height指的是盒子内容区的大小。content-box为默认值
+           box-sizing:border-box，设置了该属性后，对应的width和height指的是盒子的总大小。称为怪异盒模型
+        7.2resize   
+           resize:none，不允许用户调整元素大小。none为默认值
+           resize:both，用户可以调整元素的宽度和高度。必须配合overflow使用
+           resize:horizontale，用户可以调整元素的宽度。必须配合overflow使用
+           resize:vertical，用户可以调整元素的高度。必须配合overflow使用
+        7.3box-shadow
+           为盒子添加阴影
+        7.4opacity
+           为元素添加透明效果，值的范围为0~1，0表示完全透明、1:表示完全不透明   
+      8.新增背景属性   
+        8.1background-origin
+           设置背景图的原点
+           background-origin:padding-box，从padding区域开始显示背景图。padding-box为默认值
+           background-origin:border-box，从border区域开始显示背景图
+           background-origin:content-box，从content区域开始显示背景图
+        8.2background-clip
+           设置背景图向外裁剪的区域 
+        8.3background-size
+           设置背景图的尺寸  
+        8.4复合属性
+           background:color url repeat position / size origin clip    
+      9.新增边框属性
+        9.1边框圆角
+           border-radius:10px，同时设置4个角的圆角。另外还可以单独设置某一个角的圆角
+        9.2边框外轮廓(不参与盒子大小的计算)
+           outline-width，设置外轮廓的宽度
+           outline-color，设置外轮廓的颜色
+           outline-style，设置外轮廓的风格  
+           outline-offset，设置外轮廓与边框的距离，正负值都可以设置
+      10.新增文本属性
+         10.1文本阴影
+             text-shadow
+         10.2文本换行
+             white-space  
+         10.3文本溢出 
+             text-overflow，要使该属性生效，块容器必须显示定义overflow为非visible值、white-space为nowrap值   
+         10.4文本修饰  
+         10.5文本描边
+             仅webkit内核浏览器支持
+             -webkit-text-stroke-width，设置文字描边的宽度，写长度值
+             -webkit-text-stroke-color，设置文字描边的颜色，写颜色值
+      11.web字体(网络字体)
+         11.1基本用法
+             可以通过@font-face指定字体的具体位置，浏览器会自动下载该字体，这样就不用依赖用户电脑上的字体了
+         11.2定制字体
+             中文的字体文件很大，使用完整的字体文件不现实，通常针对某几个文字进行单独定制
+             可以使用阿里的Web字体定制工具，旧版地址 https://www.iconfont.cn/webfont#!/webfont/index   
+                                       新版地址 https://www.iconfont.cn/fonts/index?spm=a313x.7781068.0.0&type=3 
+         11.3字体图标 
+             相比图片更加清晰
+             灵活性高，更方便改变大小、颜色、风格等
+             兼容性，IE也能支持
+             字体图标的具体使用方式，每个平台不尽相同，最好参考平台使用指南，使用最多的是阿里图标库  
+      12变换
+        12.1 2D变换
+            12.1.1前提
+                  二维坐标系中，x轴向右、y轴向下，交叉点是原点(0,0)
+            12.1.2位移
+                  12.1.2.1写法
+                          transform:translateX(30px)，设置水平方向的位移，需指定长度。若指定的是百分比，则指的是自身宽度的百分比
+                          transform:translateY(40px)，设置垂直方向的位移，需指定长度。若指定的是百分比，则指的是自身宽度的百分比
+                          transform:translate(50px)，一个值代表水平方向。两个值则分别代表水平和垂直方向
+                  12.1.3注意点
+                        1.位移和相对定位很相似，都不脱离文档流，不会影响到其它元素
+                        2.与相对定位的区别：相对定位的百分比值参考的是其父元素；位移的百分比值参考的是其自身  
+                        3.浏览器针对位移有优化，与定位相比，浏览器处理位移的效率高
+                        4.transform可以链式编写
+                          transform:translateX(30px) translateY(40px)   
+                        5.位移对行内元素无效
+                        6.位移配合定位，可以实现元素水平垂直居中  
+                          .box {
+                              position: absolute
+                              left: 50%
+                              top: 50%
+                              transform: trnaslate(-50%,-50%)
+                          }
+            12.1.3缩放
+                  12.1.3.1写法
+                          transform:scaleX(0.6)，设置水平方向的缩放比例。值为一个数字，1表示不缩放、大于1表示放大、小于1表示缩小
+                          transform:scaleY(1.6)，设置垂直方向的缩放比例。值为一个数字，1表示不缩放、大于1表示放大、小于1表示缩小
+                          transform:scale(0.6)，同时设置水平方向、垂直方向的缩放比例。一个值代表同时设置水平和垂直方向的缩放比例、两个值则分别代表水平缩放和垂直缩放
+                  12.1.3.2注意点
+                          1.scale的值支持负数，但几乎不用，因为容易让人产生误解
+                          2.借助缩放，可以实现小于12pz的文字
+            12.1.4旋转
+                  12.1.4.0坐标轴
+                          有一个指向我们面部的z轴，让元素在二维平面内，顺时针或逆时针旋转沿着z轴旋转
+                  12.1.4.1写法
+                          transform:rotateZ(30deg)，正值顺时针旋转、负值逆时针旋转。一个值的时候相当于transform:rotate(30deg)
+            12.1.5扭曲
+                  12.1.5.1写法
+                          transform:skewX，设置水平方向的扭曲 
+                          transform:skewY，设置垂直方向的扭曲 
+                          transform:skew，一个值代表skewX，两个值分别代表skewX和skewY
+            12.1.6多重变换
+                  多个变换可以同时使用一个transform来编写。建议将旋转写在最后，因为旋转后，x和y坐标轴会变，再叠加其它变换，可能会出现意想不到的效果     
+            12.1.7变换原点
+                  元素变换时，默认的原点是元素的中心，使用transform-origin可以设置变换的原点
+                  修改原点对位移没有影响，对旋转和缩放会产生影响
+        12.2 3D变换 
+            12.2.1 3D空间与景深  
+                  当前元素进行3D变换的前提是其父元素必须开启3D空间和设置景深
+                     3D空间
+                       transform-style:preserve-3d，开启3D空间。默认值为flat，表示开启2D空间 
+                     景深
+                       指定观察者与z=0平面的距离，能让发生3D变换的元素产生透视效果，看起来更加立体
+                       perspective:30px，指定观察者与z=0平面的距离，不能为负值。默认值为none，没有透视效果  
+            12.2.2透视点位置
+                  所谓透视点位置就是观察者位置(想象成看元素的眼睛的位置)，默认的透视点在开启了3D空间元素的中心
+                  perspective-origin:400px 300px， 相当于眼睛的位置向右偏移400像素，然后再向下偏移300像素 
+            12.2.3位移
+                  在2D位移的基础上，可以让元素沿z轴位移
+                  transform:translateZ(30px)，正值向屏幕外移、负值向屏幕里移，不能写百分比
+                  transform:translate3d(10px,20px,30px)，分别表示向x轴、y轴、z轴移，都不能省略  
+            12.2.4旋转
+                  在2D的旋转的基础上，可以让元素沿x轴和y轴旋转  
+            12.2.5缩放
+                  在2D缩放的基础上，可以让元素沿z轴缩放(其实调整的是景深)
+                  transform:scaleZ(0.5)，效果上看，其实调整的是景深
+                  transform:translate3d(10px,20px,30px)，分别表示x轴、y轴、z轴，都不能省略  
+            12.2.6多重变换
+        12.3过渡
+            12.3.0概念
+                  过渡可以在不使用flash动画、不使用javascript的情况下，让元素从一种样式平滑过渡到另一个样式。不是所有的属性都能过渡，值为数字或值能转为数字的属性都支持过渡，否则不支持过渡
+            12.3.1过渡属性
+                  transition-property:none，不过渡任何属性
+                  transition-property:all，过渡所有能过渡的属性
+                  transition-property:width,heigth，过渡具体属性
+            12.3.2过渡时间      
+                  transition-duration:0，没有过渡时间，0为默认值
+                  transition-duration:1s，1秒的过渡时间
+                  transition-duration:1ms，1毫秒的过渡时间
+            12.3.3过渡延迟      
+                  transition-delay:2s，过渡延迟，延迟多长时间再过渡，s或ms
+            12.3.4过渡类型      
+                  transition-timing-function:ease，平滑过渡，默认值
+                  transition-timing-function:linear，线性过渡
+                  transition-timing-function:ease-in，慢->快
+                  transition-timing-function:ease-out，快->慢
+                  transition-timing-function:ease-in-out，慢->快->慢
+                  transition-timing-function:step-start，等同于steps(1,start)
+                  transition-timing-function:step-edn，等同于steps(1,end)
+                  transition-timing-function:steps(2,start)，接受两个参数的步进函数，第一个参数必须为正整数，指定函数的步数。第二个参数取值可以是start或end，默认值为end，指定每一步的值发生变化的时间点
+                  transition-timing-function:cubic-bezier(.17,.67,.62,.85)，特定的贝塞尔曲线类型。在线制作贝塞尔曲线 https://cubic-bezier.com
+            12.3.5过渡复合属性
+                  transition:1s 1s linear all，如果只设置了一个时间则表示duration，如果设置了两个时间则依次表示duration、delay，其它值没有顺序要求      
     -->
     </body>
 </html>
