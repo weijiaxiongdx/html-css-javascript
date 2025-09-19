@@ -787,31 +787,285 @@
                   transform:scaleZ(0.5)，效果上看，其实调整的是景深
                   transform:translate3d(10px,20px,30px)，分别表示x轴、y轴、z轴，都不能省略  
             12.2.6多重变换
-        12.3过渡
-            12.3.0概念
-                  过渡可以在不使用flash动画、不使用javascript的情况下，让元素从一种样式平滑过渡到另一个样式。不是所有的属性都能过渡，值为数字或值能转为数字的属性都支持过渡，否则不支持过渡
-            12.3.1过渡属性
-                  transition-property:none，不过渡任何属性
-                  transition-property:all，过渡所有能过渡的属性
-                  transition-property:width,heigth，过渡具体属性
-            12.3.2过渡时间      
-                  transition-duration:0，没有过渡时间，0为默认值
-                  transition-duration:1s，1秒的过渡时间
-                  transition-duration:1ms，1毫秒的过渡时间
-            12.3.3过渡延迟      
-                  transition-delay:2s，过渡延迟，延迟多长时间再过渡，s或ms
-            12.3.4过渡类型      
-                  transition-timing-function:ease，平滑过渡，默认值
-                  transition-timing-function:linear，线性过渡
-                  transition-timing-function:ease-in，慢->快
-                  transition-timing-function:ease-out，快->慢
-                  transition-timing-function:ease-in-out，慢->快->慢
-                  transition-timing-function:step-start，等同于steps(1,start)
-                  transition-timing-function:step-edn，等同于steps(1,end)
-                  transition-timing-function:steps(2,start)，接受两个参数的步进函数，第一个参数必须为正整数，指定函数的步数。第二个参数取值可以是start或end，默认值为end，指定每一步的值发生变化的时间点
-                  transition-timing-function:cubic-bezier(.17,.67,.62,.85)，特定的贝塞尔曲线类型。在线制作贝塞尔曲线 https://cubic-bezier.com
-            12.3.5过渡复合属性
-                  transition:1s 1s linear all，如果只设置了一个时间则表示duration，如果设置了两个时间则依次表示duration、delay，其它值没有顺序要求      
+      13.过渡
+          12.3.0概念
+                过渡可以在不使用flash动画、不使用javascript的情况下，让元素从一种样式平滑过渡到另一个样式。不是所有的属性都能过渡，值为数字或值能转为数字的属性都支持过渡，否则不支持过渡
+          12.3.1过渡属性
+                transition-property:none，不过渡任何属性
+                transition-property:all，过渡所有能过渡的属性
+                transition-property:width,heigth，过渡具体属性
+          12.3.2过渡时间      
+                transition-duration:0，没有过渡时间，0为默认值
+                transition-duration:1s，1秒的过渡时间
+                transition-duration:1ms，1毫秒的过渡时间
+          12.3.3过渡延迟      
+                transition-delay:2s，过渡延迟，延迟多长时间再过渡，s或ms
+          12.3.4过渡类型      
+                transition-timing-function:ease，平滑过渡，默认值
+                transition-timing-function:linear，线性过渡
+                transition-timing-function:ease-in，慢->快
+                transition-timing-function:ease-out，快->慢
+                transition-timing-function:ease-in-out，慢->快->慢
+                transition-timing-function:step-start，等同于steps(1,start)
+                transition-timing-function:step-edn，等同于steps(1,end)
+                transition-timing-function:steps(2,start)，接受两个参数的步进函数，第一个参数必须为正整数，指定函数的步数。第二个参数取值可以是start或end，默认值为end，指定每一步的值发生变化的时间点
+                transition-timing-function:cubic-bezier(.17,.67,.62,.85)，特定的贝塞尔曲线类型。在线制作贝塞尔曲线 https://cubic-bezier.com
+          12.3.5过渡复合属性
+                transition:1s 1s linear all，如果只设置了一个时间则表示duration，如果设置了两个时间则依次表示duration、delay，其它值没有顺序要求    
+      14.动画
+          12.4.1基本使用
+                1.定义
+                  简单定义方式
+                  @keyframes 动画名 {
+                    
+                    /* 第一桢 */
+                    from {
+                      属性名:属性值
+                    }
+                    
+                    /* 最后一桢 */
+                    to {
+                      属性名:属性值
+                    }
+                  }
+
+                  完整方式定义(中间还可以写很多帧，每个帧可以写多个属性) 
+                  @keyframes 动画名 {
+                    %0 {
+                      属性名:属性值
+                    }
+
+                    %20 {
+                      属性名:属性值
+                    }
+
+                    %60 {
+                      属性名:属性值
+                    }
+
+                    %100 {
+                      属性名:属性值
+                    }
+                  } 
+                2.使用
+                  animation-name:动画名
+                  animation-duration:动画所需的时间
+                  animation-delay:动画延迟时间
+                  animation-timing-function:设置动画类型，值同过渡一样 
+                  aimation-iteration-count:设置动画播放次数
+                  aimation-direction:指定动画方向
+                  aimation-fill-mode:设置动画之外的状态
+                  aimation-play-state:设置动画之外的状态
+          12.4.2复合属性
+                aimation:x y z，只设置一个时间表示duration，设置两个时间则分别表示duration和delay， 其它属性没有数量和顺序要求。aimation-play-state一般单独使用      
+      15.多列布局 
+         column:count:5   
+      16.伸缩盒模型 
+         16.1概述
+             2009年，W3C提出了一种新的盒模型，叫Flexible Box，即伸缩盒模型，又称弹性盒子 
+             它可以轻松的控制元素分布方式、元素对齐方式、元素视觉顺序(呈现顺序可与代码顺序不一致)
+             截止目前，除了在部分IE浏览器不支持外，其他浏览器已全部支持
+             伸缩盒模型的出现，逐渐演变出了一套称为flex布局的新布局方案
+
+             传统布局：基于传统盒模型，主要靠display属性 + position属性 + float属性
+             flex布局：在移动端应用比较广泛，因为传统布局不能很好地呈现在移动设备上
+         16.2伸缩容器与伸缩项目
+             伸缩容器：元素设置了display:flex或display:inline-flex，该元素就变成了伸缩容器
+                     display:inline-flex很少使用，因为可以给多个伸缩容器的父容器设置为伸缩容器
+                     一个元素可以同时是伸缩容器和伸缩项目
+             伸缩项目：伸缩容器的所有直接子元素(不包括孙子元素、重孙子元素等后代)自动的成了伸缩项目  
+                     无论原来是哪种元素(行内、行内块、块)，一旦成了伸缩项目，会都会“块状化”，即变成了块元素
+         16.3主轴与侧轴
+             16.3.1主轴
+                   伸缩项目沿着主轴排列，主轴默认是水平的，默认方向是从左到右
+             16.3.2侧轴
+                   与主轴垂直的就是侧轴，侧轴默认是垂直的，默认方向是从上到下
+             16.3.3主轴方向
+                   flex-direction:row，主轴方向水平从左到右，row为默认值   
+                   flex-direction:row-reverse，主轴方向水平从右到左
+                   flex-direction:column，主轴方向垂直从上到下
+                   flex-direction:column-reverse，主轴方向垂直从下到上
+                   
+                   改变了主轴的方向，侧轴的方向也随之自动改变，两个轴要保持垂直
+             16.3.4主轴换行方式
+                   flex-wrap:nowrap，不换行，nowrap为默认值。
+                   flex-wrap:wrap，自动换行
+                   flex-wrap:wrap-reverse，反向换行。如将向下换行变成向上换行
+             16.3.5复合属性
+                   flex-flow，是一个复合属性，复合了flex-direction和flex-wrap两个属性，值没有顺序要求。一般不建议使用，纯属自找麻烦
+             16.3.6主轴对齐方式
+                   justify-content:flex-start，主轴起点对齐，默认值 
+                   justify-content:flex-end，主轴终点对齐
+                   justify-content:center，居中对齐
+                   justify-content:space-between，均匀分布，两端对齐，最常用
+                   justify-content:space-around，均匀分布，两端距离是中间距离的一半
+                   justify-content:space-evenly，均匀分布，两端距离与中间距离一致   
+             16.3.7侧轴对齐方式
+                   只有一行的情况 
+                     align-items:flex-start，侧轴的起点对齐
+                     align-items:flex-end，侧轴的终点对齐
+                     align-items:center，侧轴的中点对齐
+                     align-items:baseline，伸缩项目的第一行文字的基线对齐
+                     align-items:stretch，如果伸缩项目未设置高度，将占满整个容器的高度，这是默认值
+                   多行的情况
+                     align-content:flex-start，与侧轴的起点对齐  
+                     align-content:flex-end，与侧轴的终点对齐 
+                     align-content:center，与侧轴的中点对齐
+                     align-content:space-between，与侧轴的两端对齐，中间平均分布
+                     align-content:space-around，伸缩项目间的距离相等，比距边缘的距离大一倍
+                     align-content:space-evenly，在侧轴上完全平分
+                     align-content:stretch，占满整个侧轴，默认值
+         16.4基准长度
+             flex-basis:100px，设置主轴方向的基准长度，如果主轴横向则宽度width属性失效(即以flex-basis属性的值为准)、如果主轴纵向则高度heigh属性失效即以flex-basis属性的值为准)。
+                               浏览器会根据flex-basis属性的值，计算主轴上是否有多余空间，默认值为auto(即伸缩项目的宽或高)
+         16.5伸缩性
+             flex-grow:1，定义伸缩项目的放大比例，1表示可以拉伸，默认为0(即纵使主轴存在剩余空间，也不放大) 
+                          如三个伸缩项目的flex-grow值分别为1、2、3，则这三个伸缩项目分别瓜分剩余空间的1/6、2/6、3/6  
+                          
+             flex-shrink:1，定义伸缩项目的压缩比例，默认为1(即如果空间不够，该项目会缩小) 
+                            举例：三个伸缩项目的宽分别为200px、300px、200px，它们的flex-shrink的值分别为1、2、3，若想要刚好容纳三个项目，需要总宽度为700px，但目前容器只有400px，还差300px，
+                                 所以每个项目需要收缩一下才可以放下，具体收缩的值，这样计算
+                                 1.计算分母
+                                   200*1+300*2+200*3=1400
+                                 2.计算每个项目的收缩比例
+                                   (200*1)/1400=比例值1   
+                                   (300*2)/1400=比例值2
+                                   (200*3)/1400=比例值3 
+                                 3.计算每个项目的收缩值大小(收缩比例乘以还差的大小)
+                                   比例值1*300 
+                                   比例值2*300
+                                   比例值3*300 
+         16.6flex复合属性
+             flex复合了flex-grow、flex-shrink、flex-basis三个属性，默认值为0 1 auto，即默认flex:0 1 auto 
+             如果写flex:1 1 auto，可简写为flex:auto
+             如果写flex:1 1 0，可简写为flex:1
+             如果写flex:0 0 auto，可简写为flex:none
+             如果写flex:0 1 auto，可简写为flex:0 auto
+         16.7伸缩项目排序与单独对齐
+             order:0，定义项目的排序顺序，数值越小排序越靠前，默认值为0
+             align-self:auto，单独设置某个伸缩项目的对齐方式。默认值为auto,表示继承父元素align-items属性
+         16.8案例 
+             todo  
+      17.响应式布局 
+         17.1媒体查询-媒体类型，举例如下
+             
+             只有在打印机或打印预览上才应用的样式
+             @media print {
+             
+             } 
+
+             只有在屏幕(电脑屏幕、平板屏幕、手机屏幕等)上才应用的样式
+             @media screen {
+             
+             }
+
+             所有设备上都应用的样式
+             @media all {
+             
+             
+             }
+         17.2媒体查询-媒体特性，举例如下 
+             检测到视口的宽度等于800px时才应用的样式
+             @media (width:800px) {
+             
+             } 
+             
+             检测到视口的宽度小于等于800px时才应用的样式
+             @media (max-width:800px) {
+             
+             } 
+
+             检测到视口的宽度大于等于800px时才应用的样式
+             @media (min-width:800px) {
+             
+             } 
+
+             检测到设备(就是你使用的设备，如电脑的整个屏幕宽度)的宽度等于800px时才应用的样式
+             @media (device-width:800px) {
+             
+             } 
+         17.3媒体查询-运算符，举例如下  
+             并且运算符and。视口的宽度大于等于700px且小于等于800px才应用的样式
+             @media (min-width:700px) and (max-width:800px){
+             
+             }
+             
+             检测到屏幕且视口的宽度大于等于700px且小于等于800px才应用的样式
+             @media screen and (min-width:700px) and (max-width:800px){
+             
+             }  
+
+
+             或运算符or或者逗号。视口的宽度小于等于700px或大于等于800px才应用的样式
+             @media (max-width:700px),(min-width:800px){
+             
+             }
+
+             否定运算符not。不是屏幕才应用的样式
+             @media not screen {
+             
+             }
+
+             肯定运算符only。可解决IE浏览器兼容性问题。老版本的IE浏览器检测媒体类型时，发现没有"only"媒体类型，直接不应用里面的样式
+             如果不加only，可能满足screen的条件，但screen后面的条件不满足但不认识(就不管了)，导致本来整体不满足的条件，但应用了样式，相当于乱加了样式
+             @media only screen {
+             
+             }
+    -->
+
+    <!-- BFC
+        1.概念
+        BFC是Block Formatting Context的缩写，称为块级格式上下文，可理解成元素的一个“特异功能”
+        该特异功能默认情况下处于关闭状态，当元素满足了某些条件后，该特异功能就被激活，也就是该元素创建了BFC或开启了BFC
+      2.某元素开启了BFC后能解决什么问题
+        其子元素不会再产生margin塌陷问题
+        自己不会被其他浮动元素所覆盖
+        其子元素浮动，元素自身的高度也不会塌陷
+      3.如何开启BFC  
+        3.1根元素
+           html元素一出生就开启了BFC
+        3.2浮动元素
+           给元素加上了浮动，则该元素开启了BFC 
+        3.3绝对定位和固定定位元素
+        3.4行内块元素
+        3.5表格单元格
+           table
+           thead  
+           tbody
+           tfoot
+           th
+           td
+           tr
+           caption
+        3.6overflow的值不为visible的元素
+        3.7伸缩项目
+        3.8多列容器
+           设置了多列布局的元素，column-count:1
+        3.9column-span为all的元素(即使该元素没有包裹在多列容器中)
+        3.10display的值设置为flow-root 
+    -->
+
+    <!-- 接下来要学的内容
+      1.JavaScript
+      2.移动端
+        三种视口、高清显示、适配方案、事件处理
+      3.CSS预处理
+        less、sass、stylus
+      4.工程化
+        Node.js、webpack、gulp
+      5.主流框架
+        Angular、React、Vue
+      6.小程序
+        微信小程序
+        抖音小程序
+        支付宝小程序
+      7.原生应用
+        uni-app
+        flutter
+        React Native
+      8.其它
+        ECHARTS，做数据可视化
+        tree.js，3D相关
     -->
     </body>
 </html>
