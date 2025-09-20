@@ -16,7 +16,7 @@
         <button class="btn">按钮1</button>
         <button>按钮2</button>
         <button>按钮3</button>
-        <button onclick="alert('行内JavaScript')">按钮4</button>
+        <button onclick="alert('行内JavaScript')">按钮4</button><br>
 
         <!-- JavaScript
           1.是什么
@@ -37,6 +37,70 @@
             3.3外部JavaScript
                代码写在以.js结尾的文件里，在HTML页面中通过script引入.js文件
                外部JavaScript会使代码更加有序、更易于复用，没有了脚本的混合，HMTL更加易读，所以建议使用外部JavaScript
+          4.结束符
+            使用英文的分号作为结束符，实际开发中，可写可不写，浏览器(JavaScript引擎)可以自动推断语句的结束位置
+            实际开发中，越来越多的人主张不写结束符。为了风格统一，结束符要么每句都写，要么每句都不写(按照团队要求)
+          5.JavaScript输入和输出语法
+            5.1输出语法
+               5.1.1输出语法1
+                    document.write('')，向body输出内容，如果内容中有标签，会被解析中网面元素
+               5.1.2输出语法2
+                    alert('')   
+               5.1.3输出语法3
+                    console.log('')  
+            5.2输入语法
+               5.2.1输入语法1
+                    prompt('')
+          6.JavaScript代码执行顺序
+            按HTML文档流顺序执行JavaScript，但alert和prompt会跳过页面渲染先被执行
+          7.变量  
+            7.1概念
+               是计算机存储数据的容器，通俗地说，就是一个装东西的盒子
+            7.2声明及赋值
+               先声明再赋值
+                 let age
+                 age = 18   
+               声明的同时直接赋值
+                 let age = 18  
+            7.3规则
+               不能使用关键字
+               字母严格区别大小写
+               只能使用数字、字母、下划线、$，且不能以数字开头  
+            7.4规范
+               起名要有意义
+               遵守小驼峰命名法：第一个单词首字母小写，后面每个单词首字母大写 
+            7.5let与var的区别
+                var可以先使用再声明(变量会提升)，这是不合理的。let没有该问题
+                var声明过的变量可以重复声明，这是不合理的。let没有该问题
+                var存在变量提升、全局变量、没有块级作用域
+          8.常量
+            8.1概念
+               使用const声明的变量称为常量。声明的同时必须赋值
+            8.2使用场景
+               当某个变量永远不会改变的时候，就可以使用const来声明，而不是let  
+          9.数据类型
+            9.0弱数据类型
+               JavaScript是弱数据类型语言，即变量到底属于哪种类型，只有在赋值后才能确认。Java是强类型语言
+            9.1基本数据类型
+               number：数字型，可以是整数、小数、正数、负数、NaN
+                       NaN代表一个计算错误，它是一个不正确的或未定义的数据操作所得到的结果。NaN是粘性的，任何对NaN的操作都会返回NaN
+                       数字型在浏览器控制台中显示为蓝色
+               string：字符串型
+                       通过单引号、双引号、反引号(`)包裹的数据都叫字符串。单引号和双引号没有本质区别，推荐使用单引号
+                       单引号和双引号可以互相嵌套，但是不可以自己嵌套自己。外双内单或外单内双
+                       字符串型在浏览器控制台中显示为黑色
+               boolean：布尔型
+               undefined：未定义型
+                          声明变量未赋值就直接使用了，此时输出undefined
+               null：空类型
+                     赋值了但内容为空
+            9.2引用数据类型 
+               object对象  
+            9.3数据类型检测
+               9.3.1运算符方式
+                    typeof x
+               9.3.2函数形式     
+                    typeof(x)
         -->
 
 
@@ -55,6 +119,38 @@
         <script src="./js/outer.js">
             // 这里不要写代码，写了也会被忽略
         </script> <!-- 外部JavaScript  -->
-       
+        
+        <script>
+            document.write('输出语法1，向body输出内容')
+            document.write('<h1>h1标题</h1>')
+            // let userInput = prompt('prompt会跳过页面渲染先被执行')
+            // console.log(userInput)
+            // alert('alert会跳过页面渲染先被执行')
+
+            console.log(name) // var变量可以先使用再声明，能正常打印出"张三123"
+            var name = '张三123'
+            // var name = '重复声明name变量'
+
+            const PI = 3.14 // 常量，声明的同时必须赋值
+            // PI = 3 // 不能给常量重新赋值，此处执行报错
+            console.log(PI)
+
+            let age = 20
+            document.write(`我今年${age}`) // 模板字符串，必须使用反引号包裹
+
+            // let weidingyi
+            // console.log(weidingyi) // 未定义类型，输出undefined
+
+            console.log(2-'2') // 隐式类型转换，- * /都存在隐式类型转换。第二个2由字符串类型变成了数字类型，结果为0
+            console.log(+'123') // 隐式类型转换， +作为正号解析可以转换成数字型。该例把字符串类型变成了数字类型，结果为数字123
+
+            console.log(Number('123')) // 显示类型转换，结果为数字123
+            console.log(parseInt('456px')) // 显示类型转换，px不认识直接去掉，结果为数字456
+            console.log(parseFloat('78.89px')) // 显示类型转换，px不认识直接去掉，结果为数字78.89
+
+            // let a = +prompt('隐式类型转换') // 隐式类型转换
+            // console.log(a)
+
+        </script>
     </body>
 </html>
