@@ -25,8 +25,29 @@
             2.1ECMAScript
                规定了JS基础语法核心知识
             2.2Web APIs
-               DOM：页面文档对象模型，用来操作文档，比如对页面元素进行移动、添加删除等
-               BOM：浏览器对象模型，用来操作浏览器，比如页面弹窗、检测窗口宽度、存储数据到浏览器等
+               2.2.1DOM
+                    DOM：文档对象模型，用来操作文档，比如对页面元素进行移动、添加删除等
+                    DOM树：将HTML文档以树状结构直观的表现出来，称之为文档树或DOM树。整个树中，最上层的对象就是document对象，页面所有内容都在document对象中
+                    DOM对象：浏览器根据HTML标签生成的JS对象。任何一个标签都是一个JS对象，所有的标签属性都可以在对应的JS对象上找到，修改这个对象的属性会自动映射到对应的标签上
+                    获取DOM元素：1.根据CSS选择器来获取DOM元素，如document.querySelectorAll(‘CSS选择器’)
+               2.2.2BOM    
+                    浏览器对象模型，用来操作浏览器，比如页面弹窗、检测窗口宽度、存储数据到浏览器等。包括DOM对象，最上层为windown对象(一般省略不写)，结构如下
+                    window
+                      navigator
+                        记录了浏览器自身的信息，常用属性和方法如下
+                        userAgent：检测浏览器的版本及平台。如检测是否为安卓或苹果端，如果是则跳转到移动端
+                      location
+                        href属性：获取完整的URL地址，对其赋值时用于地址的跳转
+                        search属性：获取地址中的查询参数(符号？后面的部分)
+                        hash属性：获取地址中的hash值(符号#后面的部分)
+                        reload：用来刷新当前页面，传入参数true表示强制刷新
+                      document
+                      history
+                        主要用来管理历史记录，该对象与浏览器地址栏操作相对应，如前进、后退、历史记录等
+                        back：后退
+                        forward：前进
+                        go(n)：前进后退，n=1表示前进一个页面、n=-1表示后退一个页面
+                      screen
           3.书写位置(与CSS类似)
             3.1行内JavaScript
                代码写在标签内部
@@ -111,16 +132,65 @@
           12.对象
              12.内置对象
                 Math
+             13.环境对象
+                指的是函数内部特殊的变量this，代表着当前函数运行时所处的环境
+                粗略规则：谁调用就指谁。直接调用函数，如fn()，相当于window.fn()，这时this就是window  
+          13.事件      
+             13.1事件监听
+                 13.1.1三要素
+                       事件源：被事件触发的DOM元素
+                       事件类型：触发方式，如click等
+                       事件调用函数：触发事件后要做的事 
+                 13.1.2版本
+                       DOM L0：DOM的第一个版本，L表示Level。事件源.on事件 = function (){}
+                       DOM L1：DOM级别1于1998年10月1号成为W3C推荐标准
+                       DOM L2：事件源.addEventListener(事件，事件处理函数)  
+                       DOM L3：在DOM L2的基础上重新定义了一些事件，也添加一些新事件类型   
+                   
+                       二者区别：on的方式会被覆盖，后写的函数会覆盖先写的同名函数(想像成变量赋值)
+                               addEventListener的方式会绑定多次(就是不会疲覆盖)，拥有事件更多特性，推荐使用
+             13.2事件流/事件捕获/事件冒泡
+                 事件流指的是事件完整执行过程中的流动路径
+                 当事件触发时，会经历两个阶段，分别是捕获阶段和冒泡阶段。捕获阶段指事件的执行从顶层document对象一层一层到最里层具体的对象，冒泡阶段过程相反，默认使用的是冒泡机制。若使用L0事件监听，则只有冒泡阶段
+                 addEventListener(事件类型，事件处理函数，是否使用捕获机制默认为false)，不写第三个参数，默认就是冒泡机制
+                 可以使用obj.stopPropagation()阻断事件流动传播，在冒泡阶段和捕获阶段都有效  
+             13.3事件委托 
+                 优点：减少注册次数，提高程序性能
+                 原理：利用事件冒泡的特性，给父元素注册事件，当触发子元素的时候，会冒泡到父元素，从而触发父元素的事件     
+          14.插件
+             14.1swiper插件(开源、免费、强大的触摸滑动插件) 
+                 官网：https://www.swiper.com.cn/  
+                 使用：官网->菜单栏->获取Swiper，下载Swiper->将下载的zip文件中相关的css文件和js文件放到自己的项目中->“在线演示”菜单栏中找到自己想要的效果
+                      然后点击“在新窗口中打开”并右键从网页源代码中复制相关的html、css、js到自己的页面中，或者通过在线演示中的序号从下载的文件中的demo文件夹中找到对应的html文件并复制相关的代码到自己的文件中   
+          15.JavaScript执行机制 
+             单线程执行，同一个时间只能做一件事，所有任务需要排队，如果JS执行时间过长，就会造成页面的渲染不连贯，导致页面渲染加载阻塞的感觉
+             为了解决这个问题，利用多核CPU的计算能力，HTML5提出了Web Worker标准，允许JavaScript创建多个线程，于是JavaScript中出现了同步和异步 
+             同步任务都在主线程上执行，形成一个执行栈
+             JS的异步是通过回调函数实现的，异步任务会放到任务队列中，异步任务主要有以下三种类型
+                 1.普通事件，如click、resize等  
+                 2.资源加载，如load、error等
+                 3.定时器，如setInterval、setTimeout等
+             
+             执行顺序：先执行执行栈中的同步任务，一旦执行栈中所有同步任务执行完毕，系统就会按次序读取任务队列中的任务到执行栈中并执行   
+          16.本地存储
+             16.1LocalStorage 
+                 16.1.1作用
+                       可以将数据永久存储在本地(用户的电脑)，除非手动删除，否则关闭页面也会存在
+                 16.1.2特性
+                       以键值对的形式存储、可以多窗口(页面)共享(同种浏览器同域名可共享) 
+             16.2SessionStorage
+                 关闭浏览窗口数据就没了，其它跟LocalStorage一样          
         -->
 
 
         <!-- 初体验 -->
         <!-- 内部JavaScript  --> 
         <script> 
-            let btns = document.querySelectorAll('button')
+            let btns = document.querySelectorAll('button') // querySelectorAll选择匹配的所有元素
+            // console.dir(btns) // 打印对象
             for(let i = 0; i < btns.length; i++){
                 btns[i].addEventListener('click',function(){
-                    document.querySelector('.btn').className = ''
+                    document.querySelector('.btn').className = '' // querySelector选择匹配的第一个元素
                     this.className = 'btn'
                 })
             }
