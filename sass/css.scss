@@ -1,0 +1,80 @@
+// sass语法学习。单行注释不会被编译到css文件中
+// @import 'outer.scss'; //导入外部样式。这种方式也会生成对应的css文件和map文件，但内容为空。可以在外部文件前面加上下划线，这样做了之后，就不会生成对应的空文件了
+@import 'outer'; //导入外部样式-省略外部文件后缀
+@import 'outer2'; //导入外部样式-可省略外部文件后缀,前面可加下划线也可不加下划线。不会生成对应的空文件
+$color: red; // 定义一个全局变量color，值为red 
+$color: blue !default; // 定义一个全局变量color且设置为默认值，如果这之前没有定义color变量就使用这个默认值，如果有定义就使用之前定义的值
+$blank-mode: true; // 定义一个全局变量blank-mode，值为true
+$color-map: (color1:red,color2:green,color3:orange); // 定义一个全局变量color-map
+$attr: color; // 定义一个全局变量attr，值为color
+@mixin container-style($paramOne) { // 定义一个混合指令container-style，用于公共样式的定义。可写所有的css语法、大部分的scss语法。可以定义参数
+  height: 100px;
+  width: 100px;
+  background-color: red;
+  border: 1px solid black;
+  text-align: $paramOne; // 文本对齐方式为参数paramOne的值center
+}
+body {
+  background-color: $color; // 背景颜色为变量color的值red
+  display: flex;
+
+  .container {  // .container为body的后代选择器
+    height: 100px;
+    width: 100px;
+    background-color: $color; // 背景颜色为变量color的值red
+    $text-color: blue; // 定义一个局部变量text-color，值为blue
+    color: $text-color; // 字体颜色为变量text-color的值blue
+
+    // $text-color2: green !global; // 通过!global将局部变量变成一个全部变量
+
+    @if $blank-mode { // 如果变量blank-mode的值为真，则里面的样式生效
+      margin: 100px;
+    }
+
+    background-color: map-get($color-map,color2); // 背景颜色为变量color-map中key为color2的值green 
+    background-color: $outer-color; // 使用外部样式
+    background-color: $outer2-color; // 使用外部样式
+    background-#{$attr}: purple; // 使用插值语句取变量
+
+    @include container-style($paramOne:center); // 调用混合指令container-style，添加公共样式。可传参数
+
+
+
+    &-font { // &表示父选择器，最终会被替换为“.container”。相当于内置变量
+      font-size: 20px;
+    }
+  }
+}
+
+  /*
+   * 1.变量
+   *    1.1概念
+   *       变量以$开头，后面跟变量名
+   *       必须先定义再使用
+   *       变量名可以是字母、数字、下划线和短横线且不能以数字开头
+   *       通过-和_定义的变量在css中是等价的，如$font-szie和$font_size是一样的，后面写的会覆盖前面写的
+   *    1.2作用域
+   *       局部变量
+   *       全局变量
+   *    1.3变量值类型
+   *       数字：1、2、3、10px
+   *       字符串：有引号和无引号字符串，如"hello"和hello是一样的
+   *       颜色：如red、#ff0000、rgb(255,0,0)
+   *       布尔型：true和false
+   *       空值：null
+   *       列表(list)：用空格或逗号分隔的值，如1 2 3和1,2,3是一样的
+   *       映射(maps)：键值对的集合，如(foo: bar, baz: qux)
+   * 2.指令
+   *   2.1混合指令Mixin
+   *      用于定义可重复使用的样式 
+   *   2.2继承指令Extend
+   *      用于继承一个选择器的样式
+   *   2.3流程控制指令
+   * 3.运算符
+   * 4.函数
+   * 5.自宝义函数
+   * 6.编译器
+   *   dart-sass：是sass的一种实现，它是用dart语言编写的，速度快，支持最新的sass语法。
+   *   node-sass：是sass的一种实现，它是用node.js编写的，速度慢，不支持最新的sass语法。
+   */
+

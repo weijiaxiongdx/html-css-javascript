@@ -1,0 +1,58 @@
+@charset "UTF-8";
+body {
+  background-color: red;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+body .container {
+  height: 100px;
+  width: 100px;
+  background-color: red;
+  color: blue;
+  margin: 100px;
+  background-color: green;
+  background-color: white;
+  background-color: black;
+  background-color: purple;
+  height: 100px;
+  width: 100px;
+  background-color: red;
+  border: 1px solid black;
+  text-align: center;
+}
+body .container-font {
+  font-size: 20px;
+}
+
+/*
+ * 1.变量
+ *    1.1概念
+ *       变量以$开头，后面跟变量名
+ *       必须先定义再使用
+ *       变量名可以是字母、数字、下划线和短横线且不能以数字开头
+ *       通过-和_定义的变量在css中是等价的，如$font-szie和$font_size是一样的，后面写的会覆盖前面写的
+ *    1.2作用域
+ *       局部变量
+ *       全局变量
+ *    1.3变量值类型
+ *       数字：1、2、3、10px
+ *       字符串：有引号和无引号字符串，如"hello"和hello是一样的
+ *       颜色：如red、#ff0000、rgb(255,0,0)
+ *       布尔型：true和false
+ *       空值：null
+ *       列表(list)：用空格或逗号分隔的值，如1 2 3和1,2,3是一样的
+ *       映射(maps)：键值对的集合，如(foo: bar, baz: qux)
+ * 2.指令
+ *   2.1混合指令Mixin
+ *      用于定义可重复使用的样式 
+ *   2.2继承指令Extend
+ *      用于继承一个选择器的样式
+ *   2.3流程控制指令
+ * 3.运算符
+ * 4.函数
+ * 5.自宝义函数
+ * 6.编译器
+ *   dart-sass：是sass的一种实现，它是用dart语言编写的，速度快，支持最新的sass语法。
+ *   node-sass：是sass的一种实现，它是用node.js编写的，速度慢，不支持最新的sass语法。
+ *//*# sourceMappingURL=css.css.map */

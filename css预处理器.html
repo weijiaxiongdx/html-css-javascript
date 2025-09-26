@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css预处理器</title>
+</head>
+<body>
+   <!-- CSS预处理器
+     1.概述
+       CSS预处理器是一种专门的编程语言，用于页面样式的设计，然后编译成标准的CSS文件以供项目使用。CSS预处理器为CSS增加了一些编程的特性
+       无需考虑浏览器的兼容性问题。sass、less、stylus、turbine、switch css、css cacheer、dt css等都是CSS预处理器
+       其中比较优秀的是sass、less、stylus。sass和stylus的功能比less更加强大，less则相对简单易上手，但对编译环境要求比较宽松
+     2.sass
+       2.1概念
+          saas的全称为Syntactically Awesome Style Sheets，译为语法上很棒的样式表。是一种动态样式语言，由Ruby编写
+          它的语法与CSS非常相似，但添加了一些功能，如变量、嵌套规则、混合（mixin）、继承、指令、颜色处理、函数等
+          sass的工作方式是先在sass源文件中写代码，然后由sass编译器将其编译成标准的CSS文件。sass的文件扩展名有两种，一种是.sass，另一种是.scss。其中，.sass文件使用缩进式语法，而.scss文件使用大括号式语法
+          sass从第三代开始就放弃了缩进式语法，采用大括号式语法，并完全向下兼容普通的css代码，这一代的sass也称为scss
+          需要有Ruby环境才能运行sass编译器
+          官网 https://sass-lang.com/
+          中文网 https://www.sass.hk/
+       2.2编辑器安装sass插件
+          常用的编辑器有Visual Studio Code、TRAE等。以TRAE为例，安装sass插件(如Live Sass Compiler)后，就可以在编辑器中直接编写sass代码，并且实时预览编译后的CSS效果
+          修改插件的settings.json文件内容：鼠标放到插件上，点击“齿轮”->Extension Settins->点击“Edit in settings.json”，可设置输出的css文件的位置、格式等
+       2.3sass使用
+          在sass目录下新建css.scss文件并写相关的代码，保存后css目录下会自动生成对应的css文件和map文件，html文件中引入对应的css文件即可
+     3.less
+       3.1概念
+          less的全称为Leaner Style Sheets，译为简洁的样式表。也是一种动态样式语言，受sass影响较大，由JavaScript编写
+          它的语法与CSS非常相似，但添加了一些功能，如变量、嵌套规则、混合（mixin）、继承、指令、颜色处理、函数等
+          既可以在客户端上运行(支持IE6+、Webkit、Firefox。借助less.js)，也可以在服务器端上运行(借助Node.js)
+          less的工作方式是先在less源文件中写代码，然后由less编译器将其编译成标准的CSS文件。less的文件扩展名是.less
+          浏览器中运行需要引入less.js文件
+          官网 https://lesscss.org/
+          中文网 https://less.bootcss.com/
+     4.stylus
+       4.1概念
+          stylus的全称为Stylish Stylesheet，译为富有表现力的样式表。也是一种动态样式语言，由Node.js编写
+          2010年产生于Node.js社区，由TJ Holowaychuk开发， stylus同时支持缩进式语法和大括号式语法。主要用来给Node项目进行CSS预处理支持，人气不如前两者
+          stylus的工作方式是先在stylus源文件中写代码，然后由stylus编译器将其编译成标准的CSS文件。stylus的文件扩展名是.styl
+          需要安装node
+          官网 https://stylus-lang.com/
+          中文网 https://stylus.bootcss.com/
+   -->
+</body>
+</html>
