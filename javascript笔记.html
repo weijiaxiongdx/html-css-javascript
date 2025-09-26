@@ -22,8 +22,10 @@
           1.是什么
             JavaScript是一种运行在客户端(浏览器)的编程语言
           2.组成
-            2.1ECMAScript
-               规定了JS基础语法核心知识
+            2.1ECMAScript(ES)
+               规定了JS基础语法核心知识。ES相当于规范，JavaScript是ES的实现
+               ES6的第一个版本在2015年6月发布，正式名称为《ECMAScript 2015 标准》，简称ES2015
+               ES6指的是5.1版本以后JavaScript的下一代标准，涵盖了ES2015、ES2016、ES2017等
             2.2Web APIs
                2.2.1DOM
                     DOM：文档对象模型，用来操作文档，比如对页面元素进行移动、添加删除等
@@ -309,6 +311,28 @@
 
                          整体思路：ontimeupdate这个函数可以做节流，可以设置一秒执行一次且把当前时间(video.currentTime)存储到本地存储localStorage中
                                  下次打开页面，触发onloadeddata事件时，从本地存储中取出之前保存的时间，让视频从取出的时间播放，如果没有则默认从0秒开始播放
+          28.ES6异步
+             28.1Promise
+                 28.1.1概念
+                       Promise是现代JavaScript中异步编程的基础(类似于Java中CompletableFuture)，是由一个异步函数返回的可以向我们指示当前操作所处的状态的对象。在Promise返回给调用都的时候，操作往往没有完成，但Promise对象可以让我们在操作最终完成时对其进行处理  
+                       Promise有三种状态
+                           待定(pending)：初始状态，既没有被兑现，也没有被拒绝，就是请求还在进行中
+                           已兑现(fulfilled)：操作成功完成，Promise对象的状态会从待定(pending)变成已兑现(fulfilled)，并触发then()方法
+                           已拒绝(rejected)：操作失败，Promise对象的状态会从待定(pending)变成已拒绝(rejected)，并触发catch()方法
+                 28.1.2自定义Promise  
+                       见“自定义Promise”例子 
+             28.2async/await关键字
+                 写在函数前面，快速把一个函数包装成一个异步函数，返回的是Promise对象，然后可通过Promise的then、cathc获取成功或失败的结果，这种方式比自定义Promise方便很多   
+                 在异步函数中，你可以在调用一个返回Promise对象的函数之前使用await关键字，使得代码在该点上等待，直到Promise被完成，这时返回的就是结果，就不需要通过Promise的then或cathc获取数据了，直接拿就行了 
+          29.ES6模块化(import/export)
+                将JavaScript代码分成多个模块(多个js文件)，每个模块都有自己的作用域。模块提供方(js文件)可以通过export导出自己的信息(对象、函数等)，使用方(js文件)通过import引入别的模块的信息(对象、函数等)，然后就可以使用引入进来的信息了
+                html文件中引入模块的js文件时，需要在script标签中添加type="module"属性
+          30.包管理
+             30.1npm
+                 npm是Node.js的包管理工具，用于安装、管理和分享JavaScript代码模块。它是Node.js的默认包管理器，用于安装Node.js模块和库
+                 npm仓库 https://www.npmjs.com/
+          31.构建工具
+             31.Vite  
         -->
 
 
@@ -345,7 +369,7 @@
             console.log(PI)
 
             let age = 20
-            document.write(`我今年${age}`) // 模板字符串，必须使用反引号包裹
+            document.write(`我今年${age}`) // ES6模板字符串，必须使用反引号包裹
 
             // let weidingyi
             // console.log(weidingyi) // 未定义类型，输出undefined
@@ -581,15 +605,68 @@
             // console.log('原型继承后2',w)
 
             // 异常处理
-            function fn(x,y){
-                if(!x || !y){
-                    // throw '没有参数'
-                    throw new Error('没有参数') // 会输出堆栈信息
-                }
+            // function fn(x,y){
+            //     if(!x || !y){
+            //         // throw '没有参数'
+            //         throw new Error('没有参数') // 会输出堆栈信息
+            //     }
 
-                return x+y
-            }
-            fn()
+            //     return x+y
+            // }
+            // fn()
+
+
+            // ES6链判断
+            // let obj = {
+            //     name: '张三',
+            //     age: 18,
+            //     sex: '男'
+            // }
+
+            // console.log(obj.name2) // undefined
+            // console.log(obj.name2.length) // 报错
+
+            // 链判断运算符?
+            // console.log(obj.name2?.length) // undefined，不会报错
+            // console.log(obj.name?.length) // 3
+
+            // 链判断运算符?可以连用
+            // console.log(obj.name2?.[0]?.length) // undefined，不会报错
+
+            // 自定义Promise，即把一个函数封装成一个Promise对象
+            // function MyPromise(){
+            //     return new Promise((resole,reject) => {
+            //         let x = 101
+            //         if(x%2 === 0){
+            //             resole(x) // 业务处理成功，把成功结果返回
+            //         }else{
+            //             reject('x不是偶数') // 业务处理失败，把失败结果返回
+            //         }
+            //     })  
+            // }
+            
+            // MyPromise().then((res) => { // 通过Promise的then获取成功结果
+            //     console.log('成功',res)
+            // }).catch((err) => {
+            //     console.log('失败',err) // 通过Promise的catch获取失败结果
+            // })
+
+
+            // 通过async关键字定义的函数，返回的是一个Promise对象。比上面的方式简洁一些
+            // async function MyPromise2(){
+            //     let x = 101
+            //     if(x%2 === 0){
+            //         return x // 业务处理成功，把成功结果返回
+            //     }else{
+            //         throw 'x不是偶数2' // 业务处理失败，把失败结果返回
+            //     }
+            // }
+
+            // MyPromise2().then((res) => { // 通过Promise的then获取成功结果
+            //     console.log('成功',res)
+            // }).catch((err) => {
+            //     console.log('失败',err) // 通过Promise的catch获取失败结果
+            // })
 
            
         </script>
