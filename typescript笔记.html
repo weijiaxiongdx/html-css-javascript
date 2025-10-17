@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./test.js"></script>
+</head>
+<body>
+    <h1>typescript笔记</h1>
+</body>
+
+<!-- TypeScript
+  1.简介
+    由微软开发，是基于JavaScript的一个扩展语言
+    包含了JavaScript的所有内容，即TypeScript是JavaScript的超集
+    增加了静态类型检查、接口、泛型等很多现代开发特性，因此更适合大型项目的开发
+    需要编译成JavaScript才能在浏览器中运行或交由其它JavaScript运行环境(如Node.js)执行
+  2.编译TypeScript
+    2.1命令行方式编译
+       创建一个TypeScript文件
+           如test.ts
+       全局安装TypeScript编译器(tsc，typescript compiler)
+           npm install -g typescript
+       编译ts文件(可以不写后缀名)
+           tsc test.ts
+    2.2自动化方式编译 
+       创建TypeScript编译控制文件。执行后会生成tsconfig.json文件
+           tsc --init  
+       监视目录中.ts文件的变化。执行后会自动编译变化的ts文件
+           tsc --watch   
+    2.3脚手架项目
+       通过脚手架创建的Vue、React等项目，都是通过webpack、vite自动编译的，不需要我们手动执行命令  
+  3.数据类型
+    包括所有JavaScript的数据类型
+    增加了6个新类型
+        any：任意类型，一旦将变量类型限制为为any，就意味着放弃了对该变量的类型检查
+        unknown：未知类型，与any类型类似，但是更安全。unknown类型的变量只能赋值给any类型的变量或本身，不能赋值给其他类型的变量
+        never：任何值都不是，简言之就是不能有值。undefined、null、''、0都不行。几乎不用never去直接限制变量，因为没有意义。一般用于函数抛出异常或进入无限循环时，返回never类型
+        tuple：元组类型，用于表示固定长度的数组，每个元素可以有不同的类型。就是一种特殊的数组类型
+        enum：枚举类型，用于定义命名的常量集合。增强代码的可读性、可维护性
+        void：表示没有任何类型，通常用于函数返回值声明。void是一种广泛的概念，用来表达"空"，而undefined是这种“空”的一种具体实现
+    两个用于自定义类型的方式 
+        interface：接口类型
+        type：可以为任意类型创建别名，让代码更简洁、可读性更强，同时能更方便地进行类型复用和扩展。另外还可以用来创建联合类型、交叉类型等
+  4.索引签名
+    允许定义对象可以具有任意数据的属性，这些属性的键和类型是可变的，常用于描述类型不确定的属性  
+       
+-->
+</html>
