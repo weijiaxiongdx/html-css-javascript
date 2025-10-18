@@ -103,3 +103,92 @@ const house: House = {
     city: '北京',
     street: '东城区'
 }
+
+// 接口-使用接口定义类结构
+interface PersonInterface {
+    name: string,
+    age: number
+    speak(n: number): void
+}
+
+class Person implements PersonInterface {
+    // name: string
+    // age: number
+    constructor(public name: string, public age: number) { // 简写形式，这里写了修饰符，上面就不用再单独定义了
+        this.name = name
+        this.age = age
+    }
+    speak(n: number): void {
+        console.log(this.name + '说' + n + '遍' + 'hello')
+    }
+}
+
+new Person('张三', 18).speak(3) // 张三说3遍hello
+
+
+// 接口-使用接口定义对象结构
+interface UserInterface {
+    name: string,
+    age?: number, // 可选属性，在创建时可以不赋值
+    readonly sex: string // 只读属性，只能在创建时赋值，后续不能再修改
+    run: (n: number) => void // 方法，这里用箭头函数的方式定义，也可以用普通函数的方式定义
+}
+
+const user: UserInterface = { // 把接口当成类型使用
+    name: '张三',
+    sex: '男',
+    run: (n: number) => {
+        console.log(user.name + '跑了' + n + '米')
+    }
+}
+
+// 接口-使用接口定义函数结构
+interface AddInterface {
+    (a: number, b: number): number
+}
+
+const add: AddInterface = (a, b) => {
+    return a + b
+}
+console.log(add(1, 2)) // 3
+
+
+// 接口-接口之间的继承
+interface StudentInterface extends PersonInterface {
+    id: number
+}
+
+
+// 接口-接口的自动合并(可重复定义)
+interface AnimalInterface {
+    name: string,
+    age: number
+}
+
+interface AnimalInterface {
+    sex: string
+}
+
+const animal: AnimalInterface = {
+    name: '张三',
+    age: 18,
+    sex: '男'
+}
+
+
+// 装饰器-类装饰器
+function logClass(target: Function) { // 该函数会在下面的Animal类定义时执行，target就是被装饰的类Animal
+    console.log(target)
+}
+
+@logClass
+class Animal {
+    name: string
+    age: number
+    constructor(name: string, age: number) {
+        this.name = name
+        this.age = age
+        console.log('动物类被实例化了')
+    }
+}
+
