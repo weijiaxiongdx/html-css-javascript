@@ -1102,7 +1102,80 @@
 
  
     <!-- 前端网页托管-发布自己的网站(部署上线)
+      0.前端构建工具
+        0.1构建工具作用
+           可以自动打包项目，将项目中的.vue、.jsx、.less、.scss、.ts等文件编译为浏览器可以识别的html、css、js等文件。有了构建工具后(其实是构建工具集成了对应的编译工具等)，以下的转换工作就不需要手动去做了
+               typescript：需要通过typescript提供的tsc编译器将ts文件编译为js文件
+               React/Vue： React：需要通过React提供的打包工具如Create React App或Vite等，将React项目打包为静态文件
+                           Vue：需要通过Vue提供的打包工具如Vue CLI或Vite等，将Vue项目打包为静态文件
+               less/sass：需要通过less或sass提供的编译器将less或sass文件编译为css文件
+               语法降级：通过babel将ES的新语法转换成旧版浏览器可以识别的语法
+               体积压缩：通过压缩工具如UglifyJS、Terser等，将js文件体积压缩到最小
+           模块化开发支持
+               支持直接从node_modules中引入模块，无需配置额外的路径
+                   构建工具内部会进行路径补全，如我们写的代码是import lodash from 'lodash'，最终会被自动补全为import lodash from '/node_modules/.vite/deps/lodash.js'
+               多种模块化支持
+                   CommonJS：const lodash = require('lodash');
+                   AMD：define(['lodash'], function(lodash) {
+                            // 使用lodash
+                        });
+                   ES module：import lodash from 'lodash';
+           提高性能
+               压缩文件、代码分割  
+           优化开发体验
+               构建工具会自动监听文件变化：一但文件发生变化，就会自动调用对应的集成工具进行重新打包，然后在浏览器中刷新页面，展示最新的效果。无需手动操作，提升了开发效率
+               提供开发服务器：解决跨域问题
+        0.2分类
+           0.2.1webpack
+                1.概念
+                  支持多种模块化规范，如CommonJS、AMD、ES module等，所以webpack需要将所有的依赖全部加载一遍，从而统一模块化代码，性能较vite差
+                  更多关注兼容性问题
+                  通过脚手架(如vue-cli等)创建项目时，会自动配置好webpack的相关设置，无需手动配置。相当于脚手架内置了webpack
+                  开箱即用(out of box)，无需做任何额外的配置就可以使用webpack来进行构建工作
+                2.webpack的配置文件  
+                  webpack的配置文件是webpack.config.js，默认在项目根目录下。可以在其中配置webpack的相关设置，如入口文件、输出路径、加载器、插件等
+           0.2.2vite 
+                1.概念 
+                  只支持ES module模块化，按需要加载依赖(用到了就加载)，性能较webpack好
+                  更多关注浏览器端的开发体验问题
+                  通过脚手架(如create-vite等)创建项目时，会自动配置好vite的相关设置，无需手动配置。相当于脚手架内置了vite
+                  开箱即用(out of box)，无需做任何额外的配置就可以使用vite来进行构建工作
+                2.依赖预构建
+                  vite会在项目启动时，会找到对应的依赖，然后调用esbuild将其它规范的代码(如CommonJS、AMD)转换为ES module规范的代码，然后放到当前目录下的node_modules/.vite/deps/目录下(相当于缓存)
+                  解决了以下三个问题
+                    1.网络多包传输性能问题：有了依赖预构建后，无论有多少额外的export、import，vite都会尽可能将他们进行集成，最后只生成一个或几个模块(js文件)，减少了网络请求次数，提高了性能
+                    2.兼容性问题：vite只支持ES module模块化，而不是CommonJS、AMD等其他模块化规范。所以如果项目中使用了这些规范的代码，就需要通过vite的依赖预构建功能将其转换为ES module规范的代码
+                    3.路径问题：vite在项目启动时，会根据项目中的import语句自动补全路径。所以如果项目中使用了相对路径，就需要通过vite的依赖预构建功能将其转换为绝对路径
+                3.vite的配置文件  
+                  vite的配置文件是vite.config.js，默认在项目根目录下。可以在其中配置vite的相关设置，如端口号、代理服务器、环境变量等
+                4.环境变量
+                  0.原理
+                    使用dotenv这个第三方库来管理环境变量，在需要使用环境变量的地方，通过process.env.变量名来获取对应的环境变量的值
+                    dotenv会自动解析.env文件中的内容，将其注入到process.env对象中，我们就可以在代码中通过process.env.变量名来获取对应的环境变量的值了  
+                    如果是客户端，vite会将对应的环境变量注入到import.meta.env中，为了防止将隐私性的变量直接设置到import.meta.env，变量名默认必须以VITE开头，否则不会被注入到客户端
+                  1.安装dotenv
+                    npm install dotenv --save-dev
+                  2.在项目根目录下创建.env文件
+                    在.env文件中定义环境变量，如：API_URL=http://localhost:3000
+
+                    .env文件为所有环境都需要用到的环境变量
+                    .env.development文件为开发环境需要用到的环境变量
+                    .env.production文件为生产环境需要用到的环境变量
+                  3.在代码中使用环境变量
+                    在需要使用环境变量的地方，通过process.env.变量名来获取，如：const apiUrl = process.env.API_URL;
+                5.启动命令与环境变量
+                    开发环境
+                        执行npm run dev命令，其实默认后面会带上开发环境变量参数：npm run dev --mode development
+                    测试环境
+                        可以先在package.json中增加"test": "vite --mode test"   
+                        然后执行npm run test命令，其实默认后面会带上测试环境变量参数：npm run test --mode test 
+           0.2.3parcel
+           0.2.4esbuild
+           0.2.5rollup
+           0.2.6grunt
+           0.2.7gulp
       1.项目打包
+        打包：通过构建工具将项目中的.vue、.jsx、.less、.scss、.ts等文件编译为浏览器可以识别的html、css、js等文件
         开发用的脚手架就是一个微型服务器，用于支撑开发环境、运行代理服务器等
         打包后的文件中不存在.vue、.jsx、.less等文件，而是html、css、js等文件，这些文件不再借助于脚手架运行，而是要部署到服务器上运行
       2.本地服务器部署
@@ -1153,7 +1226,7 @@
                  4.检查nginx服务器是否启动成功
                    systemctl status nginx
                4.配置nginx(并启动)
-                 这一步跟22.2中的第1步和第4步是一样的，只是将root对应的目录改成云服务器上前端资源所在目录(如/var/dist)  
+                 这一步跟“前端网页托管”第3节中的第1步和第4步是一样的，只是将root对应的目录改成云服务器上前端资源所在目录(如/var/dist)  
                5.访问(nginx默认监听端口是80，没有改的情况下，直接访问IP即可)
                  http://云服务器公网IP    
     -->
