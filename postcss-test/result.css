@@ -1,0 +1,8 @@
+:root {
+    --globalColor: red; /** 定义globalColor变量，原生css的新特性 */
+}
+
+div {
+    color: red;
+    color: var(--globalColor); /** 通过var使用globalColor变量 */
+}

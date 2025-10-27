@@ -1176,6 +1176,105 @@
                                                   2.创建一个style标签并将读取到的内容拷贝到style标签中
                                                   3.将style标签插入到html文件的head标签中
                                                   4.将xxx.css文件中的内容直接替换为js代码(方便热更新或css模块化)，同时设置Content-TYpe为JavaScript，让浏览器以js脚本的形式来执行xxx.css文件
+                  6.2在vite.config.js文件中通过css属性控制vite对css的处理行为
+                  6.3vite.config.js文件中postcss相关配置
+                     6.3.1postcss简述
+                          可将css代码(嵌套语法、函数、变量等)编译成原生的css，这个过程less、scss等预处理器都可以实现
+                          但postcss还可以实现更多的功能，如自动添加浏览器前缀(如--webkit)、对未来的高级语法(如原生css新出现的变量var语法)进行降级等
+
+                          目前来说，less和scss等一系列预处理器的postcss插件已经停止维护了，维护起来太麻烦了，所以less和scss的语法编译还是你们自己做，做完之后把编译结果再交给postcss进行处理(添加浏览器前缀、对未来的高级语法进行降级等)
+                          所以行业内就产生了一个新的说法：将postcss称为后置处理器
+                     6.3.2postcss的使用
+                          1.安装依赖，postcss-cli提供了命令行工具、postcss用于编译css代码。执行完成后，html+css项目中多了node_modules文件夹、package-lock.json和package.json文件
+                            npm install postcss-cli postcss -D  
+                          2.创建postcss-test文件夹及postcss-test.css文件并在其中编写css代码
+                          3.编译postcss-test.css文件，-o参数指定输出文件路径。执行完成后，postcss-test文件夹中多了result.css文件，其中包含了编译后的css代码
+                            npx postcss postcss-test/postcss-test.css -o postcss-test/result.css
+
+                            可以看到result.css文件中包含了编译后的css代码，但内容跟postcss-test.css文件中的内容一样，如果想让这一步的编译按照postcss.config.js文件中的配置进行编译，需要在postcss.config.js文件中配置postcss的相关的插件
+                          4.创建并编写postcss.config.js文件，配置postcss的插件
+                          5.安装postcss插件postcss-preset-env  
+                            npm install postcss-preset-env --save-dev
+                          6.重新编译 
+                            npx postcss postcss-test/postcss-test.css -o postcss-test/result.css 
+
+                            可以看到result.css中的内容有所改变，div中多了一行代码“color: red;”，即解析了globalColor变量，这样的话较低级别的浏览器也可以识别解析后的css代码了
+                     6.3.3postcss相关配置
+                          在vite.config.js文件中通过postcss属性进行相关的配置，这种方式的优先级高于postcss.config.js   
+                7.对静态资源的处理 
+                8.tree shaking
+                  中文称摇树优化，打包工具会自动移除那些没有使用到的变量和方法 
+                9.打包后的目录
+                  1.为了方便部署，一般会将打包后的文件放到dist文件夹中
+                  2.dist文件夹下的静态资源为什么要有hash
+                    浏览器有缓存机制，只要静态资源文件名字没变，浏览器就会从缓存中读取该文件，而不会从服务器重新请求该文件
+                    所以为了防止浏览器从缓存中读取到旧的文件，一般会在静态资源文件的名字中添加hash值，如app.123456.css
+                  3.在vite.config.js文件中通过build属性进行构建生产包相关的配置 
+                10.插件
+                   1.vite-aliases插件
+                     0.自动为项目中的文件路径添加别名，方便在项目中引用文件
+                     1.安装依赖
+                       npm install vite-aliases --save-dev
+
+                       当时报错“ERESOLVE unable to resolve dependency tree”，暂时在命令后添加--force参数。看日志中有很多警告，后面再解决
+                       npm install vite-aliases --save-dev -force
+                     2.在vite.config.js文件中引入插件
+                       import{ViteAliases} from 'vite-aliases'
+                     3.在vite.config.js文件中通过plugins属性配置插件
+                       plugins: [
+                           ViteAliases({ // 官网中列出了默认的一套别名规则，也可以自己单独配置。一般使用默认的，即不用写大括号
+                                '@': '/src',
+                                'components': '/src/components',
+                                'views': '/src/views',
+                                'assets': '/src/assets',
+                                'styles': '/src/styles',
+                                'utils': '/src/utils',
+                                'services': '/src/services',
+                                'config': '/src/config',
+                                'constants': '/src/constants',
+                                'hooks': '/src/hooks',
+                                'store': '/src/store',
+                                'router': '/src/router',
+                                'layouts': '/src/layouts',
+                                'public': '/public',
+                           })
+                       ]
+                   2.vite-plugin-html插件
+                     0.动态控制html文件中的内容
+                     1.安装依赖。也会报错，同上
+                       npm install vite-plugin-alias --save-dev
+                       npm install vite-plugin-alias --save-dev --force
+                     2.在vite.config.js文件中引入插件
+                       import {createHtmlPlugin} from 'vite-plugin-html'
+                     3.在vite.config.js文件中通过plugins属性配置插件
+                       plugins: [
+                            createHtmlPlugin({ // 动态控制html文件中的内容插件
+                            inject: {
+                              data: {
+                                title: "index.html文件中可以取这里定义好的数据"
+                              }
+                            }
+                          })
+                       ]
+                     4.在index.html文件中使用第3步中定义好的数据
+                   3.vite-plugin-mock插件
+                     0.模拟后端接口数据
+                     1.安装依赖，该插件依赖mockjs插件，所以一起安装。也会报错，同上
+                       npm install vite-plugin-mock mockjs --save-dev --force
+                     2.在vite.config.js文件中引入插件
+                       import {viteMockServe} from "vite-plugin-mock"
+                     3.在vite.config.js文件中通过plugins属性配置插件
+                       plugins: [
+                            viteMockServe({ // 模拟后端接口数据插件
+                                mockPath: "mock", // 模拟数据文件所在的目录
+                                localEnabled: true, // 是否开启本地开发环境下的模拟数据
+                                prodEnabled: false, // 是否开启生产环境下的模拟数据
+                                injectCode: `import { setupProdMockServer } from './mockProdServer' setupProdMockServer()`, // 生产环境下的模拟数据的注入代码
+                            })
+                       ]
+                     4.在根目录下创建mock文件夹并在其中创建index.js文件且定义模拟的接口
+                     5.测试mock接口
+                       可在main.js文件中直接调用模拟的接口
            0.2.3parcel
            0.2.4esbuild
            0.2.5rollup
